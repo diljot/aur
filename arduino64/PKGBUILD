@@ -1,0 +1,34 @@
+# Maintainer: Gergely Imreh <imrehgATgmailDOTcom>
+# Contributor: Corrado Primier <bardo@aur.archlinux.org>
+pkgname=arduino64
+_shortname=arduino
+pkgver=0012
+pkgrel=1
+pkgdesc="The Arduino IDE - 64bit version"
+arch=('x86_64')
+url="http://www.arduino.cc/"
+license=('GPL')
+depends=('avr-libc' 'java-runtime' 'libusb' 'bash')
+source=("http://arduino.googlecode.com/files/arduino-${pkgver}-linux-amd64.tgz")
+build() {
+
+  install -d ${pkgdir}/usr/share
+  cp -r ${srcdir}/${_shortname}-${pkgver} ${pkgdir}/usr/share/arduino
+  find ${pkgdir}/usr/share/arduino -type d -exec chmod 755 '{}' \;
+  find ${pkgdir}/usr/share/arduino -type f -exec chmod 644 '{}' \;
+  chmod 755 ${pkgdir}/usr/share/arduino/arduino
+
+  #fix avrdude permission
+  chmod 755 ${pkgdir}/usr/share/arduino/hardware/tools/avrdude
+
+  #Generate script to run arduino
+  install -d ${pkgdir}/usr/bin
+  cat <<EOF > ${pkgdir}/usr/bin/arduino
+#!/bin/bash
+cd /usr/share/arduino
+./arduino
+EOF
+  chmod 755 ${pkgdir}/usr/bin/arduino
+
+}
+md5sums=('a81b4a069c11134f3be1d238339e3e03')
