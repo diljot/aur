@@ -1,0 +1,34 @@
+# Maintainer: Gergely Imreh <imrehgATgmailDOTcom>
+# Contributor: Gergely Imreh <imrehgATgmailDOTcom>
+# Originally contributed by champus, madeye, Ranguvar and ninja_pt
+pkgname=hwinfo
+pkgver=15.26
+_minorver=1.25
+pkgrel=7
+pkgdesc="A simple program that lists results from the hardware detection library."
+arch=('i686' 'x86_64')
+url="http://www.opensuse.org"
+license=('GPL2')
+depends=('hal' 'perl')
+makedepends=('sysfsutils' 'rpmextract' 'flex')
+options=('!emptydirs')
+source=("http://download.opensuse.org/factory/repo/src-oss/suse/src/${pkgname}-${pkgver}-${_minorver}.src.rpm")
+build() {
+
+  cd ${srcdir}
+  rpmextract.sh ${pkgname}-${pkgver}-${_minorver}.src.rpm || return 1
+  tar -xjf ${pkgname}-${pkgver}.tar.bz2
+
+  cd ${srcdir}/${pkgname}-${pkgver}
+
+  sed -i '145,149 d' src/hd/kbd.c
+
+# Fix Makefile using /usr/lib64 instead of /usr/lib - it broke x86_64, possibly i686 too. 
+# Comment if this fix breaks it - untested on i686 or anything special.
+  sed -i 's_usr/lib64_usr/lib_' src/hd/Makefile 
+
+  make -j1 || return 1
+  make DESTDIR=${pkgdir} install || return 1
+
+}
+md5sums=('9019542a3d33c77d4fc7d2da3bc019ed')
