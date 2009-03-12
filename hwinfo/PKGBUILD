@@ -4,7 +4,7 @@
 pkgname=hwinfo
 pkgver=15.26
 _minorver=1.25
-pkgrel=7
+pkgrel=8
 pkgdesc="A simple program that lists results from the hardware detection library."
 arch=('i686' 'x86_64')
 url="http://www.opensuse.org"
@@ -12,7 +12,7 @@ license=('GPL2')
 depends=('hal' 'perl')
 makedepends=('sysfsutils' 'rpmextract' 'flex')
 options=('!emptydirs')
-source=("http://download.opensuse.org/factory/repo/src-oss/suse/src/${pkgname}-${pkgver}-${_minorver}.src.rpm")
+source=("http://ftp.hosteurope.de/mirror/ftp.opensuse.org/source/factory/repo/oss/suse/src/${pkgname}-${pkgver}-${_minorver}.src.rpm")
 build() {
 
   cd ${srcdir}
@@ -31,4 +31,4 @@ build() {
   make DESTDIR=${pkgdir} install || return 1
 
 }
-md5sums=('9019542a3d33c77d4fc7d2da3bc019ed')
+md5sums=('b0bcbcb9c31dc7d93ac9a359c3c7b286')
