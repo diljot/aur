@@ -1,25 +1,30 @@
 # $Id: PKGBUILD 22035 2008-12-21 10:00:17Z tpowa $
 # Maintainer: Gergely Imreh <imrehgATgmailDOTcom>
 pkgname=kernel26-eee-greg
-_basekernel=2.6.28.7
+_basekernel=2.6.28.8
 _kernelname=${pkgname#kernel26}
 pkgver=${_basekernel}
 pkgrel=1
 pkgdesc="Greg's EeePC version of the Linux Kernel and modules"
 arch=(i686)
-license=('GPL')
+license=('GPL2')
 groups=('base')
 url="http://www.kernel.org"
 backup=(etc/mkinitcpio.d/${pkgname}.preset)
-depends=('coreutils' 'module-init-tools' 'mkinitcpio>=0.5.18')
+depends=('coreutils' 'module-init-tools' 'mkinitcpio>=0.5.20')
+replaces=('kernel24' 'kernel24-scsi' 'kernel26-scsi'
+          'alsa-driver' 'ieee80211' 'hostap-driver26'
+          'pwc' 'nforce' 'squashfs' 'unionfs' 'ivtv'
+          'zd1211' 'kvm-modules' 'iwlwifi' 'rt2x00-cvs'
+          'gspcav1' 'atl2' 'wlan-ng26')
 install=kernel26.install
-#source=(ftp://ftp.kernel.org/pub/linux/kernel/v2.6/linux-${pkgver}.tar.bz2
-source=(http://www.kernel.org/pub/linux/kernel/v2.6/linux-${pkgver}.tar.bz2
+#source=(http://www.kernel.org/pub/linux/kernel/v2.6/linux-${pkgver}.tar.bz2
+source=(ftp://ftp.kernel.org/pub/linux/kernel/v2.6/linux-${pkgver}.tar.bz2
         # the kernel config files
         config${_kernelname}
         # standard config files for mkinitcpio ramdisk
-        kernel26.preset
-	)
+        kernel26.preset)
+optdepends=('crda: to set the correct wireless channels of your country')
 build() {
   KARCH=x86
 
@@ -47,8 +52,6 @@ build() {
   _kernver="$(make kernelrelease)"
   # load configuration
 #  yes "" | make menuconfig
-
-### build!
   ####################
   # stop here
   # this is useful to configure the kernel
@@ -73,6 +76,10 @@ build() {
   for i in acpi asm-{generic,x86} config linux math-emu media net pcmcia scsi sound video; do
     cp -a include/$i ${pkgdir}/usr/src/linux-${_kernver}/include/
   done
+
+  # copy arch includes for external modules
+  mkdir -p ${pkgdir}/usr/src/linux-${_kernver}/arch/x86
+  cp -a arch/x86/include ${pkgdir}/usr/src/linux-${_kernver}/arch/x86/
 
   # copy files necessary for later builds, like nvidia and vmware
   cp Module.symvers ${pkgdir}/usr/src/linux-${_kernver}
@@ -117,6 +124,12 @@ build() {
   # http://bugs.archlinux.org/task/11194
   mkdir -p ${pkgdir}/usr/src/linux-${_kernver}/include/config/dvb/
   cp include/config/dvb/*.h ${pkgdir}/usr/src/linux-${_kernver}/include/config/dvb/
+  # add dvb headers for http://mcentral.de/hg/~mrec/em28xx-new
+  # in reference to:
+  # http://bugs.archlinux.org/task/13146
+  mkdir -p ${pkgdir}/usr/src/linux-${_kernver}/drivers/media/dvb/frontends/
+  cp drivers/media/dvb/frontends/lgdt330x.h ${pkgdir}/usr/src/linux-${_kernver}/drivers/media/dvb/frontends/
+  cp drivers/media/video/msp3400-driver.h ${pkgdir}/usr/src/linux-${_kernver}/drivers/media/dvb/frontends/
   # add xfs and shmem for aufs building
   mkdir -p ${pkgdir}/usr/src/linux-${_kernver}/fs/xfs
   mkdir -p ${pkgdir}/usr/src/linux-${_kernver}/mm
