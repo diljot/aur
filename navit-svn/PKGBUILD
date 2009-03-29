@@ -1,6 +1,6 @@
 # Contributor:  Gergely Imreh <imrehg(at)gmail(dot)com>
 pkgname=navit-svn
-pkgver=2073
+pkgver=2173
 pkgrel=1
 pkgdesc="Bleeding-edge (SVN) version of the modular, touch screen friendly car navigation system with GPS tracking, realtime routing engine and support for various vector map formats."
 arch=('i686' 'x86_64')
@@ -33,7 +33,7 @@ build() {
 
   ./autogen.sh
   
-  ./configure --prefix=/usr
+  ./configure --prefix=/usr --disable-samplemap
   make || return 1
   make DESTDIR=${pkgdir} install || return 1
 
