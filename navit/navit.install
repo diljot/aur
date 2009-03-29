@@ -6,8 +6,8 @@ Necessary additional setup:
 Copy /usr/share/navit/navit.xml to ~/.navit/navit.xml
 or see http://wiki.navit-project.org/index.php/Configuring_Navit
 
-Only the example map of Munich is included in the install, you
-have to get the map of your area yourself!
+No map included in the install, you have to get the map of your 
+area yourself!
 See http://wiki.navit-project.org/index.php/OpenStreetMaps or
 http://wiki.navit-project.org/index.php/Configuring_Navit 
 
