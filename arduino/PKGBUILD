@@ -1,8 +1,8 @@
 # Maintainer: Gergely Imreh <imrehgATgmailDOTcom>
 # Contributor: Corrado Primier <bardo@aur.archlinux.org>
 pkgname=arduino
-pkgver=0013
-_modver=2
+pkgver=0015
+_modver=
 pkgrel=1
 pkgdesc="The Arduino IDE"
 arch=('i686')
@@ -31,4 +31,4 @@ EOF
   chmod 755 ${pkgdir}/usr/bin/arduino
 
 }
-md5sums=('738e8481cf5248cd94450b4e399de2c2')
+md5sums=('0cac66b633a1ffb0ac2e1350e9f81d19')
