@@ -1,7 +1,7 @@
 # $Id: PKGBUILD 22035 2008-12-21 10:00:17Z tpowa $
 # Maintainer: Gergely Imreh <imrehgATgmailDOTcom>
 pkgname=kernel26-eee-greg
-_basekernel=2.6.29
+_basekernel=2.6.29.1
 _kernelname=${pkgname#kernel26}
 pkgver=${_basekernel}
 pkgrel=1
@@ -170,3 +170,6 @@ build() {
   fi
 
 }
+md5sums=('4ada43caecb08fe2af71b416b6f586d8'
+         '14044cf542e896d41adbd77897cfe858'
+         '4a6880dd70ce4fff813976d8b272c4e7')
