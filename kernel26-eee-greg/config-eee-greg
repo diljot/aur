@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
-# Linux kernel version: 2.6.29
-# Tue Mar 24 13:06:36 2009
+# Linux kernel version: 2.6.29.1
+# Sat Apr 18 22:46:25 2009
 #
 # CONFIG_64BIT is not set
 CONFIG_X86_32=y
@@ -844,7 +844,7 @@ CONFIG_BT_HIDP=m
 #
 # Bluetooth device drivers
 #
-# CONFIG_BT_HCIBTUSB is not set
+CONFIG_BT_HCIBTUSB=m
 CONFIG_BT_HCIBTSDIO=m
 CONFIG_BT_HCIUART=m
 CONFIG_BT_HCIUART_H4=y

@@ -4,7 +4,7 @@ pkgname=kernel26-eee-greg
 _basekernel=2.6.29.1
 _kernelname=${pkgname#kernel26}
 pkgver=${_basekernel}
-pkgrel=1
+pkgrel=2
 pkgdesc="Greg's EeePC version of the Linux Kernel and modules"
 arch=(i686)
 license=('GPL2')
@@ -171,5 +171,5 @@ build() {
 
 }
 md5sums=('4ada43caecb08fe2af71b416b6f586d8'
-         '14044cf542e896d41adbd77897cfe858'
+         '7af0168b4599a37d8078d469147f2081'
          '4a6880dd70ce4fff813976d8b272c4e7')
