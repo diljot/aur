@@ -3,8 +3,8 @@
 # Originally contributed by champus, madeye, Ranguvar and ninja_pt
 pkgname=hwinfo
 pkgver=15.26
-_minorver=1.33
-pkgrel=14
+_minorver=1.34
+pkgrel=15
 pkgdesc="A simple program that lists results from the hardware detection library."
 arch=('i686' 'x86_64')
 url="http://www.opensuse.org"
@@ -31,4 +31,4 @@ build() {
   make DESTDIR=${pkgdir} install || return 1
 
 }
-md5sums=('01b57c0dd35b7fd9bca609eb5dd91f90')
+md5sums=('f3f22b258946885cb11fa5009dc53447')
