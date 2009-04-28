@@ -164,3 +164,6 @@ build() {
   fi
 
 }
+md5sums=('a6839571a9e70baf821d2fb752f9c4c6'
+         '8220661412e13b6deb1f46a35f3a1d54'
+         '321869d0992ee87e6bf3896baf1f3a80')
