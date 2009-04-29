@@ -2,7 +2,7 @@
 # Maintainer: Tobias Powalowski <tpowa@archlinux.org>
 # Maintainer: Thomas Baechler <thomas@archlinux.org>
 pkgname=kernel26-acer-greg
-_basekernel=2.6.29.1
+_basekernel=2.6.29.2
 _kernelname=${pkgname:8}
 pkgver=${_basekernel}
 pkgrel=1
@@ -166,3 +166,6 @@ build() {
   fi
 
 }
+md5sums=('a6839571a9e70baf821d2fb752f9c4c6'
+         'a49be2b603ba533e704c0b7e6716bf34'
+         '4adf5f515b4628dc986518977d8cffd5')
