@@ -1,0 +1,19 @@
+# Contributor: jordi Cerdan (jcerdan) <jcerdan@tecob.com
+pkgname=ucview
+pkgver=0.23
+pkgrel=1
+pkgdesc="A video image capture application that uses the unicap toolkit."
+arch=('i686' 'x86_64')
+url="http://unicap-imaging.org"
+license=('GPL')
+depends=('unicap' 'libglade' 'gconf')
+source=(http://www.unicap-imaging.org/downloads/$pkgname-$pkgver.tar.gz)
+md5sums=('570a5d155b22529267a5a63eb95554ee')
+
+build() {
+  cd $startdir/src/ucview-$pkgver
+  ./configure --prefix=/usr --enable-vid21394-visca --enable-unicapgtk \
+	      --enable-remote
+  make || return 1
+  make DESTDIR=$startdir/pkg install
+}
