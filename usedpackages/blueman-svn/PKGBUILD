@@ -1,0 +1,50 @@
+# Maintainer: Marcus Ekwall (mekwall) <marcus.ekwall@gmail.com>
+# Based on pkgbuild by Abhishek Dasgupta <abhidg@gmail.com>
+
+pkgname=blueman-svn
+pkgver=429
+pkgrel=1
+pkgdesc="GTK+ bluetooth management utility"
+arch=('i686' 'x86_64')
+license=('GPL')
+install=$pkgname.install
+url="http://blueman.tuxfamily.org"
+depends=('gnome-python' 'python-notify' 'python-pybluez' 'bluez>=4.21' 'dbus-python' 'gtk2>=2.12' 'glib2>=2.12' 'pygobject>=2.12' 'intltool' 'libbtctl>=0.10.0-2' 'gconf>=2.0' 'startup-notification>=0.9')
+makedepends=('subversion' 'pyrex' 'pkgconfig')
+provides=('blueman')
+replaces=('blueman')
+optdepends=("gnome-bluetooth: Send files over bluetooth"
+	    "gnome-vfs-obexftp, nautilus: To view OBEX ftp shares")
+options=(!libtool)
+source=('blueman-svn.install')
+md5sums=('3ae9fb740225c83d69037c8abe170541')
+
+_svntrunk="https://fsckyou.info/svn/blueman/trunk"
+_svnmod="blueman"
+
+build() {
+  cd ${srcdir}
+  msg "Connecting to SVN server...."
+  if [ -d ${_svnmod}/.svn ]; then
+    (cd ${_svnmod} && svn up -r $pkgver)
+  else
+    svn co ${_svntrunk} --config-dir ./ -r ${pkgver} ${_svnmod}
+  fi
+
+  msg "SVN checkout done or server timeout"
+  msg "Starting make..."
+  svn export ${_svnmod} ${_svnmod}-build
+  cd ${_svnmod}-build
+  #
+  # BUILD
+  #
+  ./autogen.sh --prefix=/usr --sysconfdir=/etc
+
+  # clear tmp
+  make clean
+  make || return 1
+  make DESTDIR=${pkgdir} install || return 1
+
+  cd ${srcdir}
+  rm -R ${_svnmod}-build
+}
