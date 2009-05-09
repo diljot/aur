@@ -1,7 +1,7 @@
 # Contributor: raubkopierer <mail[dot]sensenmann[at]googlemail[dot]com>
 
 pkgname=ffmpeg-svn
-pkgver=18682
+pkgver=18773
 pkgrel=1
 pkgdesc="Complete and free Internet live audio and video broadcasting solution for Linux/Unix"
 arch=('i686' 'x86_64')
@@ -45,6 +45,7 @@ build() {
   --enable-shared \
   --enable-pthreads \
   --enable-x11grab \
+  --enable-nonfree \
   --arch=`uname -m` \
   || return 1
 
