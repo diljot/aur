@@ -1,7 +1,7 @@
 # Contributor: zhuqin <zhuqin83@gmail.com>
 
 pkgname=x264-git
-pkgver=20090425
+pkgver=20090509
 pkgrel=1
 pkgdesc="free library for encoding H264/AVC video streams"
 arch=('i686' 'x86_64')
