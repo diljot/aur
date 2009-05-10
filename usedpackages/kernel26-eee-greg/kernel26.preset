@@ -4,7 +4,7 @@
 # DO NOT EDIT THIS LINE:
 source /etc/mkinitcpio.d/kernel26.kver
 ########################################
-ALL_kver='2.6.29.2-eee-greg'
+ALL_kver='2.6.29.3-eee-greg'
 ALL_config="/etc/mkinitcpio.conf"
 
 PRESETS=('default' 'fallback')
