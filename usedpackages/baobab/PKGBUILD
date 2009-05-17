@@ -1,0 +1,18 @@
+# Contributor: Jonathan Tellier <jonathan.tellier@gmail.com>
+pkgname=baobab
+pkgver=2.4.2
+pkgrel=1
+pkgdesc="Baobab is a C/gtk+ application to analyse disk usage in any Gnome environment."
+arch=(i686)
+url="http://www.marzocca.net/linux/baobab.html"
+license=('GPL')
+depends=('libgnomeui' 'gtk2' 'gnome-vfs' 'gconf' 'libgtop' 'libglade' 'libgnomecanvas')
+source=(http://www.marzocca.net/linux/downloads/$pkgname-$pkgver.tar.gz)
+md5sums=('5c99413e18a07b562fbfd7f8c707ae07')
+
+build() {
+  cd $startdir/src/$pkgname-$pkgver
+  ./configure --prefix=/usr
+  make || return 1
+  make DESTDIR=$startdir/pkg install || return 1
+}
