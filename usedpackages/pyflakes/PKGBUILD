@@ -1,0 +1,23 @@
+# Contributor: Tiago Pierezan Camargo <tcamargo@gmail.com>
+pkgname=pyflakes
+pkgver=0.3.0
+pkgrel=1
+pkgdesc='PyFlakes a Lint-like tool for Python, like PyChecker. It is focused on identifying common errors quickly without executing Python code.'
+arch=('i686' 'x86_64')
+url='http://www.divmod.org/trac/wiki/DivmodPyflakes'
+license=('MIT')
+depends=('python')
+makedepends=('setuptools')
+conflicts=('pyflakes-svn')
+source=("http://divmod.org/trac/attachment/wiki/SoftwareReleases/${pkgname}-${pkgver}.tar.gz?format=raw"
+  "LICENSE")
+md5sums=('ec7eee3444214bda18e57b82175e1da7'
+         'de969cc00d340065508936c7d5c028cf')
+build() {
+  cd ${srcdir}/${pkgname}-${pkgver}
+
+  python setup.py install --root=${pkgdir} || return 1
+
+  cd ${srcdir}
+  install -D LICENSE ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
+}
