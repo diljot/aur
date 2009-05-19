@@ -2,7 +2,7 @@
 # Contributor: Gergely Imreh <imrehgATgmailDOTcom>
 
 pkgname=pyfacebook-git
-pkgver=20090511
+pkgver=20090519
 pkgrel=1
 pkgdesc="A thin wrapper for accessing Facebook's RESTful API through Python."
 arch=('i686' 'x86_64')
