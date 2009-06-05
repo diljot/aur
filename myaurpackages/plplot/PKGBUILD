@@ -2,7 +2,7 @@
 # Contributor: Eric Belanger <eric@archlinux.org>
 
 pkgname=plplot
-pkgver=5.9.2
+pkgver=5.9.4
 pkgrel=1
 pkgdesc="A cross-platform software package for creating scientific plots"
 arch=('i686' 'x86_64')
@@ -18,7 +18,6 @@ optdepends=('qhull : calculating convex hulls'
             'freetype2 : enables use of ttf fonts for some drivers')
 options=('!libtool' '!makeflags')
 source=(http://downloads.sourceforge.net/sourceforge/plplot/${pkgname}-${pkgver}.tar.gz)
-md5sums=('2a14753112083badab87f1806cc12a46')
 build() {
   cd ${srcdir}/${pkgname}-${pkgver}
   cmake -DCMAKE_INSTALL_PREFIX=/usr -DENABLE_octave=off -DENABLE_tcl=ON -DENABLE_tk=ON || return 1
@@ -26,3 +25,4 @@ build() {
   make DESTDIR=${pkgdir} install
   install -D -m644 Copyright ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
 }
+md5sums=('db172aaf0a7aa429b63d9bbd28637fd4')
