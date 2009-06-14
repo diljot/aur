@@ -1,0 +1,42 @@
+# Maintainer: Stefan Husmann <stefan-husmann@t-online.de>
+# Contributor: damir <damir@archlinux.org>
+# Contributor: Tom K <tomk@runbox.com>
+
+pkgname=hdf5
+pkgver=1.8.3
+pkgrel=1
+arch=('i686' 'x86_64')
+pkgdesc="General purpose library and file format for storing scientific data"
+url="http://hdf.ncsa.uiuc.edu/HDF5/"
+license=('custom')
+depends=('zlib' 'bash')
+makedepends=('time')
+source=(ftp://ftp.hdfgroup.org/HDF5/current/src/${pkgname}-${pkgver}.tar.gz)
+md5sums=('5ce228d860bf9e797ca40ab1a823c380')
+options=('!libtool')
+
+build() {
+  cd $srcdir/${pkgname}-${pkgver}
+  unset CFLAGS
+  unset CXXFLAGS
+  F9X=gfortran ./configure --prefix=/usr \
+                            --enable-hl \
+                            --enable-threadsafe \
+                            --enable-linux-lfs \
+                            --enable-production \
+                            --enable-hdf5v1_4 \
+                            --enable-hdf5v1_6 \
+			    --enable-cxx \
+                            --enable-fortran \
+			    --enable-shared \
+			    --with-pic \
+			    --docdir=/usr/share/doc/hdf5/ \
+                            --with-pthread=/usr/lib/ \
+                            --with-ssl=/usr/lib/
+  make || return 1
+  make -j1 prefix=$pkgdir/usr install || return 1
+
+  install -d -m755 $pkgdir/usr/share/licenses/${pkgname} || return 1
+  install -m644 $srcdir/${pkgname}-${pkgver}/COPYING \
+          $pkgdir/usr/share/licenses/${pkgname}/LICENSE || return 1
+}
