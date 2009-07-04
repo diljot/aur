@@ -2,8 +2,8 @@
 # Contributor: Gergely Imreh <imrehgATgmailDOTcom>
 # Originally contributed by champus, madeye, Ranguvar and ninja_pt
 pkgname=hwinfo
-pkgver=16.2
-_minorver=1.2
+pkgver=16.3
+_minorver=1.1
 pkgrel=1
 pkgdesc="A simple program that lists results from the hardware detection library."
 arch=('i686' 'x86_64')
@@ -31,4 +31,4 @@ build() {
   make DESTDIR=${pkgdir} install || return 1
 
 }
-md5sums=('64999142a012a677e1f502956e5ef46b')
+md5sums=('30e13e12f159710232a98fa276384e71')
