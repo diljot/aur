@@ -2,7 +2,7 @@
 #Contributor: Gergely Imreh <imrehg(at)gmail(dot)com>
 
 pkgname=python-sympy-git
-pkgver=20090424
+pkgver=20090706
 pkgrel=1
 pkgdesc="A Python library for symbolic mathematics."
 depends=('python')
