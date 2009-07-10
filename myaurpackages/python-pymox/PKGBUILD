@@ -3,7 +3,7 @@
 pkgname=python-pymox
 _orig_name=mox
 pkgver=0.5.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A mock object framework for Python."
 depends=('python')
 arch=('i686' 'x86_64')
@@ -14,8 +14,6 @@ source=("http://pymox.googlecode.com/files/${_orig_name}-${pkgver}.tar.gz")
 build() {
   cd "${srcdir}/${_orig_name}-${pkgver}"
 
-#  cd "${srcdir}/${_gitname}"
   python setup.py install --root "${pkgdir}" || return 1
-
 }
 md5sums=('4203ea4f03c7dcec0a1ceb1290a8b615')
