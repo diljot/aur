@@ -1,8 +1,8 @@
 # Maintainer: Gergely Imreh <imrehgATgmailDOTcom>
 pkgname=libx86emu
 pkgver=1.1
-_minorver=3.2
-pkgrel=2
+_minorver=3.3
+pkgrel=4
 pkgdesc=" x86 emulation library"
 arch=('i686' 'x86_64')
 url="http://www.opensuse.org"
@@ -19,10 +19,14 @@ build() {
 
   cd ${srcdir}/${pkgname}-${pkgver}
 
+# Fix Makefile using /usr/lib64 instead of /usr/lib - it broke x86_64, possibly i686 too. 
+# Comment if this fix breaks it - untested on i686 or anything special.
+  sed -i 's_usr/lib64_usr/lib_' Makefile 
+
   make -j1 || return 1
   make DESTDIR=${pkgdir} install || return 1
 
   install -D -m644 "LICENSE" "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 
 }
-md5sums=('05c1197bedb7faa1be748c433abfb5ec')
+md5sums=('bdabb5cdac83fb40bab5a5a0d6fd8856')
