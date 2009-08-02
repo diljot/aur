@@ -1,7 +1,7 @@
 # Contributor: raubkopierer <mail[dot]sensenmann[at]googlemail[dot]com>
 
 pkgname=ffmpeg-svn
-pkgver=18781
+pkgver=19562
 pkgrel=1
 pkgdesc="Complete and free Internet live audio and video broadcasting solution for Linux/Unix"
 arch=('i686' 'x86_64')
