@@ -3,7 +3,7 @@ _basekernel=2.6.30
 _kernelname=${pkgname:8}
 _extradir=""
 _xenomaiver=2.4
-pkgver=20090801
+pkgver=20090803
 pkgrel=1
 pkgdesc="Lab Edition ofthe Linux Kernel and modules (ThinkPad R50e)"
 arch=(i686)
@@ -22,10 +22,7 @@ source=(ftp://ftp.kernel.org/pub/linux/kernel/v2.6/${_extradir}linux-${_basekern
 #	http://download.gna.org/xenomai/stable/xenomai-${_xenomaiver}.tar.bz2
 	# adeos i-pipe patch
 	http://download.gna.org/adeos/patches/v2.6/x86/adeos-ipipe-${_basekernel}-x86-2.4-05.patch
-	# fixes
-#	wrappers_32.patch
-#	owner.patch
-	)
+)
 
 _gitroot="git://xenomai.org/xenomai-${_xenomaiver}.git"
 _gitname="xenomai-${_xenomaiver}"
@@ -198,6 +195,6 @@ build() {
   make DESTDIR=${pkgdir} install || return 1
 }
 md5sums=('7a80058a6382e5108cdb5554d1609615'
-         '8c1a3297c4500e8313f370fd9245c19a'
+         'b052e7edaa16ad6e2dadea5cd2b53347'
          '50466a52121ed5c8446f4caad8926608'
          '1cf407aa17653d3f415cb504fa0483d2')

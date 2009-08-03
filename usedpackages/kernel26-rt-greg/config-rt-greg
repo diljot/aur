@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # Linux kernel version: 2.6.30
-# Sat Aug  1 09:47:37 2009
+# Mon Aug  3 14:19:51 2009
 #
 # CONFIG_64BIT is not set
 CONFIG_X86_32=y
@@ -227,7 +227,8 @@ CONFIG_XENO_HW_FPU=y
 #
 # CONFIG_XENO_HW_SMI_DETECT_DISABLE is not set
 CONFIG_XENO_HW_SMI_DETECT=y
-# CONFIG_XENO_HW_SMI_WORKAROUND is not set
+CONFIG_XENO_HW_SMI_WORKAROUND=y
+CONFIG_XENO_HW_SMI_ALL=y
 
 #
 # Interfaces
