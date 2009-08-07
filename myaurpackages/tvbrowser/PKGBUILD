@@ -1,7 +1,7 @@
 # Contributor: Sebastian Sareyko <public@nooms.de>
 # Maintainer: Gergely Imreh <imrehgATgmailDOTcom>
 pkgname=tvbrowser
-pkgver=2.7.3
+pkgver=2.7.4
 pkgrel=1
 pkgdesc="A java-based TV guide which is easily extensible using plugins"
 arch=('i686' 'x86_64')
@@ -34,7 +34,7 @@ build() {
   done
 }
 
-md5sums=('5b950f0f20e6e674a2934e45df6a4d81'
+md5sums=('a2ac42fb74a8eed65f4a02055e8e925f'
          'ac75767a87d94e51afe0897f1614d256'
          '96ae258b2917c54b167102f6bbdc58b4'
          '622e89ee1e3915e42dfa913ea7d98e20')
