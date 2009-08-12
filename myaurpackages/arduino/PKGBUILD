@@ -1,15 +1,14 @@
 # Maintainer: Gergely Imreh <imrehgATgmailDOTcom>
 # Contributor: Corrado Primier <bardo@aur.archlinux.org>
 pkgname=arduino
-pkgver=0016
-_modver=
+pkgver=0017
 pkgrel=1
 pkgdesc="The Arduino IDE"
 arch=('i686')
 url="http://www.arduino.cc/"
 license=('GPL')
 depends=('avr-libc' 'java-runtime' 'libusb' 'bash')
-source=(http://arduino.googlecode.com/files/${pkgname}-${pkgver}-linux${_modver}.tgz)
+source=(http://arduino.googlecode.com/files/${pkgname}-${pkgver}.tgz)
 build() {
 
   install -d ${pkgdir}/usr/share
@@ -31,4 +30,4 @@ EOF
   chmod 755 ${pkgdir}/usr/bin/arduino
 
 }
-md5sums=('2546bfa9c9b2fbef95ff76ea041f91af')
+md5sums=('138a850939408abf668dde4a3b06e99b')
