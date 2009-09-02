@@ -1,6 +1,6 @@
 # Contributor:  Gergely Imreh <imrehg(at)gmail(dot)com>
 pkgname=navit-svn
-pkgver=2214
+pkgver=2552
 pkgrel=1
 pkgdesc="Bleeding-edge (SVN) version of the modular, touch screen friendly car navigation system with GPS tracking, realtime routing engine and support for various vector map formats."
 arch=('i686' 'x86_64')
@@ -13,6 +13,7 @@ optdepends=('cegui>=0.5.0, quesoglc: OpenGL gui')
 source=()
 md5sums=()
 options=(!libtool)
+install=navit-svn.install
 _svntrunk=https://navit.svn.sourceforge.net/svnroot/navit/trunk/navit
 _svnmod=navit
 
@@ -22,21 +23,22 @@ build() {
   if [ -d $_svnmod/.svn ]; then
     (cd $_svnmod && svn up -r $pkgver)
   else
-#    svn co $_svntrunk --config-dir ./ -r $pkgver $_svnmod
     svn co $_svntrunk --config-dir ./ -r $pkgver 
   fi
 
   msg "SVN checkout done or server timeout"
   msg "Starting make..."
 
+  # Create copy for build
   cp -r $_svnmod $_svnmod-build
   cd $_svnmod-build
 
-  ./autogen.sh
-  
-  ./configure --prefix=/usr --disable-samplemap
+  # Finally, build!
+  ./autogen.sh || return 1
+  ./configure --prefix=/usr --disable-samplemap || return 1
   make || return 1
   make DESTDIR=${pkgdir} install || return 1
 
+  # Remove build directory
   rm -rf ${srcdir}/$_svnmod-build
 }
