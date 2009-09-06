@@ -1,0 +1,46 @@
+# Maintainer:  Gergely Imreh <imrehg(at)gmail(dot)com>
+pkgname=gopenvpn-svn
+pkgver=6
+pkgrel=1
+pkgdesc="SVN version of the modular, touch screen friendly car 
+navigation system with GPS tracking, realtime routing engine and support for various vector map formats."
+arch=('i686' 'x86_64')
+url="http://gopenvpn.sourceforge.net/"
+license=('GPL')
+provides=('gopenvpn')
+depends=('openvpn' 'glib' 'gtk' 'glade' 'gnome-keyring' 'gksu' 'gedit')
+makedepends=('automake' 'autoconf')
+source=('autogen.patch')
+options=()
+_svntrunk=https://gopenvpn.svn.sourceforge.net/svnroot/gopenvpn/trunk/gopenvpn
+_svnmod=gopenvpn
+
+build() {
+  cd ${srcdir}
+
+  if [ -d $_svnmod/.svn ]; then
+    (cd $_svnmod && svn up -r $pkgver)
+  else
+    svn co $_svntrunk --config-dir ./ -r $pkgver 
+  fi
+
+  msg "SVN checkout done or server timeout"
+  msg "Starting make..."
+
+  
+  # Create copy for build
+  cp -r $_svnmod $_svnmod-build
+  cd $_svnmod-build
+
+  patch < ../autogen.patch
+
+  # Finally, build!
+  ./autogen.sh || return 1
+  ./configure --prefix=/usr || return 1
+  make || return 1
+  make DESTDIR=${pkgdir} install || return 1
+
+  # Remove build directory
+  rm -rf ${srcdir}/$_svnmod-build
+}
+md5sums=('e2378a5768d694a45417b5e0989c976c')
