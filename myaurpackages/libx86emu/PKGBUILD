@@ -2,7 +2,7 @@
 pkgname=libx86emu
 pkgver=1.1
 _minorver=3.8
-pkgrel=9
+pkgrel=10
 pkgdesc=" x86 emulation library"
 arch=('i686' 'x86_64')
 url="http://www.opensuse.org"
@@ -10,7 +10,7 @@ license=('BSD')
 depends=('glibc')
 makedepends=('rpmextract')
 options=('!emptydirs')
-source=("http://download.opensuse.org/factory/repo/src-oss/suse/src/${pkgname}-${pkgver}-${_minorver}.src.rpm")
+source=("http://download.opensuse.org/source/factory/repo/oss/suse/src/${pkgname}-${pkgver}-${_minorver}.src.rpm")
 build() {
 
   cd ${srcdir}
