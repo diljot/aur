@@ -1,8 +1,8 @@
 # Original contributor: Stefan Lohmaier <noneuss at gmail dot com
 # Contributor: Gergely Imreh <imrehg(at)gmail(dot)com>
 pkgname=navit
-pkgver=0.1.0
-pkgrel=11
+pkgver=0.1.1
+pkgrel=1
 pkgdesc="Modular, touch screen friendly car navigation system with GPS tracking, realtime routing engine and support for various vector map formats."
 arch=('i686' 'x86_64')
 url="http://wiki.navit-project.org/index.php/Main_Page"
@@ -13,7 +13,6 @@ makedepends=('gcc' 'libtool' 'automake' 'autoconf' 'gettext' 'glib2' 'libxt')
 optdepends=('cegui>=0.5.0, quesoglc: OpenGL gui')
 install=navit.install
 source=(http://downloads.sourceforge.net/sourceforge/navit/$pkgname-$pkgver.tar.gz)
-md5sums=('92b0653189f34742f9960ba309a77f35')
 build() {
   cd $startdir/src/$pkgname-$pkgver
 
@@ -21,3 +20,4 @@ build() {
   make || return 1
   make DESTDIR="$startdir/pkg" install
 }
+md5sums=('379b49d97c92e7e1658f49281e4e40f5')
