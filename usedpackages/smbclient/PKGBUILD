@@ -54,5 +54,4 @@ build() {
   done
   install -m644 ../docs/manpages/libsmbclient.7 ${pkgdir}/usr/share/man/man7/
 }
-md5sums=('f4563c7dfca803c6d56a4948f0af05a8')
 md5sums=('d99c3ccc3066d1c6a0dba4de02aad24b')
