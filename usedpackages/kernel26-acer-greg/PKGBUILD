@@ -2,7 +2,7 @@
 # Maintainer: Tobias Powalowski <tpowa@archlinux.org>
 # Maintainer: Thomas Baechler <thomas@archlinux.org>
 pkgname=kernel26-acer-greg
-_basekernel=2.6.31.1
+_basekernel=2.6.31.4
 _kernelname=${pkgname:8}
 pkgver=${_basekernel}
 pkgrel=1
@@ -181,6 +181,6 @@ build() {
   # remove firmware, as separate package provides them.
   rm -fr ${pkgdir}/lib/firmware
 }
-md5sums=('8077cd7f7c1cdeb6aef3872441ae5294'
-         '918fa57e1a214b9e7fd8c946a43a0ea5'
-         'a6e86af5ce745e8bb8b0aa5ecb2d43f9')
+md5sums=('ae7fde9fd0ae0d8ac12a1e1536d6d3ce'
+         '7c7dd2f5cdd840e84b885f99f66300b6'
+         '3bc114325d6950ca950f76ce43c095d6')
