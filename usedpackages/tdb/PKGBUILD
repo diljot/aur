@@ -1,0 +1,28 @@
+# $Id$
+# Maintainer: eric <eric@archlinux.org>
+# Contributor: Tom Newsom <Jeepster@gmx.co.uk>
+pkgname=tdb
+pkgver=3.3.9
+pkgrel=1
+# We use the 'A' to fake out pacman's version comparators.  Samba chooses
+# to append 'a','b',etc to their subsequent releases, which pamcan
+# misconstrues as alpha, beta, etc.  Bad samba!
+_realver=${pkgver}
+pkgdesc="A Trivia Database similar to GDBM but allows simultaneous commits"
+arch=(i686 x86_64)
+license=('GPL3')
+url="www.samba.org"
+source=(http://samba.org/samba/ftp/stable/samba-${_realver}.tar.gz)
+options=(!makeflags)
+
+build() {
+   cd ${srcdir}/samba-${_realver}/source/lib/tdb
+   ./autogen.sh
+   ./configure --prefix=/usr
+   make || return 1
+   make DESTDIR=$startdir/pkg install
+   ln -sf /usr/lib/libtdb.so.1.1.2 ${pkgdir}/usr/lib/libtdb.so.1
+   ln -sf /usr/lib/libtdb.so.1.1.2 ${pkgdir}/usr/lib/libtdb.so
+}
+
+md5sums=('d99c3ccc3066d1c6a0dba4de02aad24b')
