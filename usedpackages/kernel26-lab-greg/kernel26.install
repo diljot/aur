@@ -2,7 +2,7 @@
 # arg 2:  the old package version
 
 KERNEL_NAME=-lab-greg
-KERNEL_VERSION=2.6.31.4-lab-greg
+KERNEL_VERSION=2.6.31.5-lab-greg
 
 post_install () {
   # updating module dependencies
