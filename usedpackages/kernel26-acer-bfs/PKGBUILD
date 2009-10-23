@@ -1,6 +1,6 @@
 #Maintainer Gergely Imreh <imrehgATgmailDOTcom>
 pkgname=kernel26-acer-bfs
-_basekernel=2.6.31.4
+_basekernel=2.6.31.5
 _kernelname=${pkgname:8}
 pkgver=${_basekernel}
 pkgrel=1
@@ -132,8 +132,8 @@ build() {
   # in reference to:
   # http://bugs.archlinux.org/task/13146
   mkdir -p ${pkgdir}/usr/src/linux-${_kernver}/drivers/media/dvb/frontends/
-  cp drivers/media/dvb/frontends/lgdt330x.h ${pkgdir}/usr/src/linux-${_kernver}/drivers/media/dvb/f$
-  cp drivers/media/video/msp3400-driver.h ${pkgdir}/usr/src/linux-${_kernver}/drivers/media/dvb/fro$
+  cp drivers/media/dvb/frontends/lgdt330x.h ${pkgdir}/usr/src/linux-${_kernver}/drivers/media/dvb/frontends/
+  cp drivers/media/video/msp3400-driver.h ${pkgdir}/usr/src/linux-${_kernver}/drivers/media/dvb/frontends/
   # add xfs and shmem for aufs building
   mkdir -p ${pkgdir}/usr/src/linux-${_kernver}/fs/xfs
   mkdir -p ${pkgdir}/usr/src/linux-${_kernver}/mm
@@ -184,7 +184,7 @@ build() {
   # remove firmware, as separate package provides them.
   rm -fr ${pkgdir}/lib/firmware
 }
-md5sums=('ae7fde9fd0ae0d8ac12a1e1536d6d3ce'
-         '994b94c69c6b13fb8fee4b8ebdddf1c5'
-         'b08663dc5cbcc6a4b874ccb3b1b724e6'
+md5sums=('926bff46d24e2f303e4ee92234e394d8'
+         '71ba7b3c8319a818b3c7b6f58123391e'
+         '151831d752ab30740f205ada3737d0a3'
          '7bc2c5fa16878272544e5f979fe6db0c')
