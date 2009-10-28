@@ -1,0 +1,13 @@
+Test kernel compilation
+-----------------------
+
+1) Place kernel in src/linux directory
+Can use git repository, or just from an archive file
+
+2) Use your own .config to set things up
+The system won't modify the settings
+
+3) run package compilation
+makepkg --skipinteg
+
+3) Package will be installed as kernel26-test 
