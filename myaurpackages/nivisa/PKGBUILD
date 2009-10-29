@@ -1,0 +1,16 @@
+# Maintainer: Gergely Imreh <imrehgATgmailDOTcom>
+# Contributor: Gergely Imreh <imrehgATgmailDOTcom>
+pkgname=nivisa
+pkgver=4.5.1
+pkgrel=1
+pkgdesc="National Instruments VISA hardware drivers"
+arch=('i686')
+url="http://www.ni.com"
+license=('GPL2')
+depends=()
+makedepends=('libcdio' 'rpmextract')
+source=("ftp://ftp.ni.com/support/softlib/visa/NI-VISA/4.5.1/Linux/NI-VISA-4.5.1.iso")
+build() {
+  msg "Placeholder"
+}
+md5sums=('870819d0e86d8c8405d69c24d86f6482')
