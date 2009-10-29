@@ -8,7 +8,7 @@ arch=(i686 x86_64)
 url="http://live.gnome.org/giggle"
 license=('GPL')
 depends=('git' 'libglade' 'gtksourceview2' 'perlxml' 'evolution-data-server')
-source=(giggle.install
+source=(
         "0001-giggle-view-file-depreciated-gtk_source_view_set_mar.patch"
        )
 options=(!libtool)
@@ -56,3 +56,4 @@ build() {
 }
 md5sums=('5e9e403f725f0bdc3228adc2d193d4bf'
          '6e77c79e1246034ca94b7842fbe0668c')
+md5sums=('6e77c79e1246034ca94b7842fbe0668c')
