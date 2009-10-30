@@ -9,8 +9,28 @@ url="http://www.ni.com"
 license=('GPL2')
 depends=()
 makedepends=('libcdio' 'rpmextract')
-source=("ftp://ftp.ni.com/support/softlib/visa/NI-VISA/4.5.1/Linux/NI-VISA-4.5.1.iso")
+source=("ftp://ftp.ni.com/support/softlib/visa/NI-VISA/4.5.1/Linux/NI-VISA-${pkgver}.iso")
 build() {
-  msg "Placeholder"
+  cd ${srcdir}
+
+  # Get the list of files within the ISO and extract them
+  list=( $(iso-info NI-VISA-${pkgver}.iso -l |grep LSN) )
+  element_count=${#list[*]}
+  for ((n=26; n <= $element_count; n=n+9))
+  do
+    filename=${list[n]}
+    echo ${filename}
+    iso-read -i NI-VISA-${pkgver}.iso -e ${filename} -o ${filename}
+    if [[ "$filename" =~ "tar.gz" ]]
+    then
+      tar xzvf $filename
+    fi
+  done
+
+  cd ${srcdir}/rpms
+  rpmextract.sh nikali-1.9.0-f0.noarch.rpm
+  rpmextract.sh nivisa-${pkgver}-f0.i386.rpm
+  rpmextract.sh nivisaserver-${pkgver}-f0.i386.rpm
+#  cp -R usr/local/vxipnp/* ${pkgdir}
 }
 md5sums=('870819d0e86d8c8405d69c24d86f6482')
