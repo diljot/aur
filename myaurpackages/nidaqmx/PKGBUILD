@@ -1,0 +1,38 @@
+# Maintainer: Gergely Imreh <imrehgATgmailDOTcom>
+# Contributor: Gergely Imreh <imrehgATgmailDOTcom>
+pkgname=nidaqmx
+pkgver=8.0.1
+_filever=801f0
+pkgrel=1
+pkgdesc=""
+arch=('i686')
+url="http://www.ni.com"
+license=('GPL2')
+depends=()
+makedepends=('libcdio' 'rpmextract')
+source=("ftp://ftp.ni.com/support/softlib/multifunction_daq/nidaqmx/${pkgver}%20Linux%20Only/DAQmx${_filever}.iso")
+build() {
+  isoname=DAQmx${_filever}.iso
+  cd ${srcdir}
+
+  # Get the list of files within the ISO and extract them
+  list=( $(iso-info "${isoname}" -l |grep LSN) )
+  element_count=${#list[*]}
+  for ((n=26; n <= $element_count; n=n+9))
+  do
+    filename=${list[n]}
+    echo ${filename}
+    iso-read -i "${isoname}" -e ${filename} -o ${filename}
+    if [[ "$filename" =~ "tar.gz" ]]
+    then
+      tar xzvf $filename
+    fi
+  done
+
+  cd ${srcdir}/rpms
+#  rpmextract.sh nikali-1.9.0-f0.noarch.rpm
+#  rpmextract.sh nivisa-${pkgver}-f0.i386.rpm
+#  rpmextract.sh nivisaserver-${pkgver}-f0.i386.rpm
+#  cp -R usr/local/vxipnp/* ${pkgdir}
+}
+md5sums=('ce23b991d67fb5300131d428328b73d6')
