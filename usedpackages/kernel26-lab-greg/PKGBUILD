@@ -165,5 +165,5 @@ build() {
 
 }
 md5sums=('485472df88af84becdcf47f45de3ba46'
-         'bf8d25e35bbe6dbc64d317ef719ca554'
+         '6290213fc7d79a4d8fa2d028d04ae056'
          '2cf7b3c16c57bce3ee6e8ca918079c3e')
