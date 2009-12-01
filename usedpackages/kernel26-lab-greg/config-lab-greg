@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
-# Linux kernel version: 2.6.31.5
-# Fri Oct 23 13:28:17 2009
+# Linux kernel version: 2.6.31.6
+# Tue Dec  1 10:56:37 2009
 #
 # CONFIG_64BIT is not set
 CONFIG_X86_32=y
@@ -1915,8 +1915,6 @@ CONFIG_SYNCLINKMP=m
 CONFIG_N_HDLC=m
 # CONFIG_RISCOM8 is not set
 # CONFIG_SPECIALIX is not set
-# CONFIG_SX is not set
-# CONFIG_RIO is not set
 # CONFIG_STALDRV is not set
 CONFIG_NOZOMI=m
 
