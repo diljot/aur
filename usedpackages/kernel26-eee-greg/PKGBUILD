@@ -1,10 +1,10 @@
 # $Id: PKGBUILD 22035 2008-12-21 10:00:17Z tpowa $
 # Maintainer: Gergely Imreh <imrehgATgmailDOTcom>
 pkgname=kernel26-eee-greg
-_basekernel=2.6.31.6
+_basekernel=2.6.32
 _kernelname=${pkgname#kernel26}
 pkgver=${_basekernel}
-pkgrel=2
+pkgrel=1
 pkgdesc="Greg's EeePC version of the Linux Kernel and modules"
 arch=(i686)
 license=('GPL2')
@@ -171,6 +171,6 @@ build() {
   # remove firmware, as separate package provides them.
   rm -fr ${pkgdir}/lib/firmware
 }
-md5sums=('485472df88af84becdcf47f45de3ba46'
-         '304f31a01118a51f06a720dfb5f3bea3'
-         '3042233ceab8877b898dcb10a902499a')
+md5sums=('260551284ac224c3a43c4adac7df4879'
+         'a7aebd765f484fe2ded8347a3dd565a6'
+         'befd4e1730ce9c5ffa7bb0663bc7ae65')
