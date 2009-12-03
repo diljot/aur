@@ -1,5 +1,5 @@
 pkgname=kernel26-lab-greg
-_basekernel=2.6.31.6
+_basekernel=2.6.32
 _kernelname=${pkgname:8}
 _extradir=""
 pkgver=${_basekernel}
@@ -164,6 +164,6 @@ build() {
   fi
 
 }
-md5sums=('485472df88af84becdcf47f45de3ba46'
-         '6290213fc7d79a4d8fa2d028d04ae056'
-         '2cf7b3c16c57bce3ee6e8ca918079c3e')
+md5sums=('260551284ac224c3a43c4adac7df4879'
+         'd88ecc8ab3e6a31863510bf8382180db'
+         '632898ece42da3f896ff673bebf04274')
