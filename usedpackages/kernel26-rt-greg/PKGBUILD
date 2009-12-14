@@ -1,9 +1,10 @@
 pkgname=kernel26-rt-greg
-_basekernel=2.6.30
+_basekernel=2.6.30.8
 _kernelname=${pkgname:8}
 _extradir=""
 _xenomaiver=2.4
-pkgver=20090803
+_adeosver=2.4-06
+pkgver=20091214
 pkgrel=1
 pkgdesc="Lab Edition ofthe Linux Kernel and modules (ThinkPad R50e)"
 arch=(i686)
@@ -21,7 +22,7 @@ source=(ftp://ftp.kernel.org/pub/linux/kernel/v2.6/${_extradir}linux-${_basekern
 	# xenomai
 #	http://download.gna.org/xenomai/stable/xenomai-${_xenomaiver}.tar.bz2
 	# adeos i-pipe patch
-	http://download.gna.org/adeos/patches/v2.6/x86/adeos-ipipe-${_basekernel}-x86-2.4-05.patch
+#	http://download.gna.org/adeos/patches/v2.6/x86/adeos-ipipe-${_basekernel}-x86-${_adeosver}.patch
 )
 
 _gitroot="git://xenomai.org/xenomai-${_xenomaiver}.git"
@@ -35,15 +36,17 @@ build() {
   msg "Connecting to GIT server...."
 
   if [ -d $_gitname ] ; then
-    cd ${_gitname} && git-pull origin
+    cd ${_gitname} && git pull origin master
     msg "The local files are updated."
   else
     git clone ${_gitroot}
+    cd ${_gitname}
   fi
 
   msg "GIT checkout done or server timeout"
-  cd ${_gitname}
-  scripts/prepare-kernel.sh --linux=../linux-${_basekernel} --adeos=../adeos-ipipe-${_basekernel}-${KARCH}-2.4-05.patch --arch=${KARCH} || return 1
+  scripts/prepare-kernel.sh --linux=../linux-${_basekernel} \
+    --adeos=ksrc/arch/${KARCH}/patches/adeos-ipipe-${_basekernel}-${KARCH}-${_adeosver}.patch \
+    --arch=${KARCH} || return 1
 
 
 ## SETUP
@@ -194,7 +197,6 @@ build() {
   make || return 1
   make DESTDIR=${pkgdir} install || return 1
 }
-md5sums=('7a80058a6382e5108cdb5554d1609615'
-         'b052e7edaa16ad6e2dadea5cd2b53347'
-         '50466a52121ed5c8446f4caad8926608'
-         '1cf407aa17653d3f415cb504fa0483d2')
+md5sums=('76b8397bfb477788b26c834f71e27df6'
+         'fe131edbe98a41ad1e76b6bcd9600d90'
+         '0af0f2ba05b3af8ac0753534ebd5158d')

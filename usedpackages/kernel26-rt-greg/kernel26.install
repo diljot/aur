@@ -2,7 +2,7 @@
 # arg 2:  the old package version
 
 KERNEL_NAME=-rt-greg
-KERNEL_VERSION=2.6.30-rt-greg
+KERNEL_VERSION=2.6.30.8-rt-greg
 
 post_install () {
   # updating module dependencies
