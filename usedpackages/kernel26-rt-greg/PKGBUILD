@@ -198,5 +198,5 @@ build() {
   make DESTDIR=${pkgdir} install || return 1
 }
 md5sums=('76b8397bfb477788b26c834f71e27df6'
-         'fe131edbe98a41ad1e76b6bcd9600d90'
-         '0af0f2ba05b3af8ac0753534ebd5158d')
+         '91716e9d2572a18a37c555440729ab71'
+         '6531b5bcecf22fd81972415f9548ecbe')
