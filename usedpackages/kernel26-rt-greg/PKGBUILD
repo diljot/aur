@@ -2,9 +2,9 @@ pkgname=kernel26-rt-greg
 _basekernel=2.6.30.8
 _kernelname=${pkgname:8}
 _extradir=""
-_xenomaiver=2.4
+_xenomaiver=head
 _adeosver=2.4-06
-pkgver=20091214
+pkgver=20091215
 pkgrel=1
 pkgdesc="Lab Edition ofthe Linux Kernel and modules (ThinkPad R50e)"
 arch=(i686)
@@ -198,5 +198,5 @@ build() {
   make DESTDIR=${pkgdir} install || return 1
 }
 md5sums=('76b8397bfb477788b26c834f71e27df6'
-         '91716e9d2572a18a37c555440729ab71'
+         '7b641036a622a8ec4898a75b69962cd5'
          '6531b5bcecf22fd81972415f9548ecbe')
