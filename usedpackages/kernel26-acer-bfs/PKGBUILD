@@ -2,9 +2,10 @@
 pkgname=kernel26-acer-bfs
 _basekernel=2.6.32.2
 _bfskernel=2.6.32
+_ckver=ck2
 _kernelname=${pkgname:8}
 pkgver=${_basekernel}
-pkgrel=1
+pkgrel=2
 pkgdesc="Greg's Acer Travelmate version of the Linux Kernel and modules, with BFS"
 arch=(i686)
 license=('GPL2')
@@ -19,7 +20,7 @@ source=(ftp://ftp.kernel.org/pub/linux/kernel/v2.6/linux-${pkgver}.tar.bz2
         # standard config files for mkinitcpio ramdisk
         kernel26.preset
         # BFS patch
-        http://www.kernel.org/pub/linux/kernel/people/ck/patches/2.6/${_bfskernel}/${_bfskernel}-ck1/patch-${_bfskernel}-ck1.gz
+        http://www.kernel.org/pub/linux/kernel/people/ck/patches/2.6/${_bfskernel}/${_bfskernel}-${_ckver}/patch-${_bfskernel}-${_ckver}.gz
 	)
 build() {
   KARCH=x86
@@ -28,7 +29,7 @@ build() {
   cd ${srcdir}/linux-${pkgver}
 
   # Patch kernel, e.g. with BFS code
-  patch -p1 < ../patch-${_bfskernel}-ck1
+  patch -p1 < ../patch-${_bfskernel}-${_ckver}
 
   # Change kernel name in kernel26.preset and kernel26.install
   sed \
@@ -186,6 +187,6 @@ build() {
   rm -fr ${pkgdir}/lib/firmware
 }
 md5sums=('9809778a867dfd3d6811a2f929256334'
-         'd75761d6f3742485e9de3d8e296fd135'
+         '8f643ce106ebe22fa0ffbf1193c2e54d'
          'be82a17db13c08f4873f1a059b49671b'
-         '266432857f6ff7c1314d10640ff9fabc')
+         'd30e3bfb68f34f76342630b12f205f01')
