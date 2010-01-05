@@ -2,9 +2,10 @@
 pkgname=kernel26-lab-bfs
 _basekernel=2.6.32.2
 _bfskernel=2.6.32
+_ckver=ck2
 _kernelname=${pkgname:8}
 pkgver=${_basekernel}
-pkgrel=1
+pkgrel=2
 pkgdesc="Greg's EeePC version of the Linux Kernel and modules, with BFS"
 arch=(i686)
 license=('GPL2')
@@ -19,7 +20,7 @@ source=(ftp://ftp.kernel.org/pub/linux/kernel/v2.6/linux-${pkgver}.tar.bz2
         # standard config files for mkinitcpio ramdisk
         kernel26.preset
         # BFS patch
-        http://www.kernel.org/pub/linux/kernel/people/ck/patches/2.6/${_bfskernel}/${_bfskernel}-ck1/patch-${_bfskernel}-ck1.gz        
+        http://www.kernel.org/pub/linux/kernel/people/ck/patches/2.6/${_bfskernel}/${_bfskernel}-${_ckver}/patch-${_bfskernel}-${_ckver}.gz
 	)
 build() {
   KARCH=x86
@@ -28,7 +29,7 @@ build() {
   cd ${srcdir}/linux-${pkgver}
 
   # Patch kernel, e.g. with BFS code
-  patch -p1 < ../patch-${_bfskernel}-ck1
+  patch -p1 < ../patch-${_bfskernel}-${_ckver}
 
   # Change kernel name in kernel26.preset and kernel26.install
   sed \
@@ -186,6 +187,6 @@ build() {
   rm -fr ${pkgdir}/lib/firmware
 }
 md5sums=('9809778a867dfd3d6811a2f929256334'
-         '71292e3a27d590a8e68daa0310fc5442'
+         '3298aced7d8f5cd3968f52f24e182d12'
          'bd126b8304d21e10b1ef2fca45f1dd95'
-         '266432857f6ff7c1314d10640ff9fabc')
+         'd30e3bfb68f34f76342630b12f205f01')

@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # Linux kernel version: 2.6.32.2
-# Wed Dec 23 16:10:30 2009
+# Tue Jan  5 12:05:06 2010
 #
 # CONFIG_64BIT is not set
 CONFIG_X86_32=y
@@ -53,6 +53,7 @@ CONFIG_CONSTRUCTORS=y
 #
 # General setup
 #
+CONFIG_SCHED_BFS=y
 CONFIG_EXPERIMENTAL=y
 CONFIG_BROKEN_ON_SMP=y
 CONFIG_LOCK_KERNEL=y
