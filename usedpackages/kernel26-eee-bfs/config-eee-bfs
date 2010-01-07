@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
-# Linux kernel version: 2.6.32.2
-# Tue Jan  5 12:19:57 2010
+# Linux kernel version: 2.6.32.3
+# Thu Jan  7 23:18:14 2010
 #
 # CONFIG_64BIT is not set
 CONFIG_X86_32=y
@@ -1114,18 +1114,17 @@ CONFIG_ISAPNP=y
 # CONFIG_PNPBIOS is not set
 CONFIG_PNPACPI=y
 CONFIG_BLK_DEV=y
-CONFIG_BLK_DEV_FD=m
+# CONFIG_BLK_DEV_FD is not set
 # CONFIG_BLK_DEV_XD is not set
-CONFIG_BLK_CPQ_DA=m
-CONFIG_BLK_CPQ_CISS_DA=m
-# CONFIG_CISS_SCSI_TAPE is not set
-CONFIG_BLK_DEV_DAC960=m
+# CONFIG_BLK_CPQ_DA is not set
+# CONFIG_BLK_CPQ_CISS_DA is not set
+# CONFIG_BLK_DEV_DAC960 is not set
 # CONFIG_BLK_DEV_UMEM is not set
 # CONFIG_BLK_DEV_COW_COMMON is not set
 CONFIG_BLK_DEV_LOOP=m
 CONFIG_BLK_DEV_CRYPTOLOOP=m
-CONFIG_BLK_DEV_NBD=m
-CONFIG_BLK_DEV_SX8=m
+# CONFIG_BLK_DEV_NBD is not set
+# CONFIG_BLK_DEV_SX8 is not set
 # CONFIG_BLK_DEV_UB is not set
 CONFIG_BLK_DEV_RAM=m
 CONFIG_BLK_DEV_RAM_COUNT=16
