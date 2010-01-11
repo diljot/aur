@@ -1,7 +1,7 @@
 # $Id: PKGBUILD 22035 2008-12-21 10:00:17Z tpowa $
 # Maintainer: Gergely Imreh <imrehgATgmailDOTcom>
 pkgname=kernel26-eee-greg
-_basekernel=2.6.32.2
+_basekernel=2.6.32.3
 _kernelname=${pkgname#kernel26}
 pkgver=${_basekernel}
 pkgrel=1
@@ -171,6 +171,6 @@ build() {
   # remove firmware, as separate package provides them.
   rm -fr ${pkgdir}/lib/firmware
 }
-md5sums=('9809778a867dfd3d6811a2f929256334'
-         '4cd22bee9583be4c4aee9a435866f739'
-         'fead5b550b8ef64ecdd8bb690d2c076e')
+md5sums=('730045c2c7f7e6618db3c4d4d7094853'
+         '4cf380b2317acfcb20898ec1a4663fcb'
+         '4c70a1523fc590a3bdc09805fb5ee7a1')

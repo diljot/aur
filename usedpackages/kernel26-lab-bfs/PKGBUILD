@@ -1,11 +1,11 @@
 #Maintainer Gergely Imreh <imrehgATgmailDOTcom>
 pkgname=kernel26-lab-bfs
-_basekernel=2.6.32.2
+_basekernel=2.6.32.3
 _bfskernel=2.6.32
 _ckver=ck2
 _kernelname=${pkgname:8}
 pkgver=${_basekernel}
-pkgrel=2
+pkgrel=1
 pkgdesc="Greg's EeePC version of the Linux Kernel and modules, with BFS"
 arch=(i686)
 license=('GPL2')
@@ -186,7 +186,7 @@ build() {
   # remove firmware, as separate package provides them.
   rm -fr ${pkgdir}/lib/firmware
 }
-md5sums=('9809778a867dfd3d6811a2f929256334'
-         '3298aced7d8f5cd3968f52f24e182d12'
-         'bd126b8304d21e10b1ef2fca45f1dd95'
+md5sums=('730045c2c7f7e6618db3c4d4d7094853'
+         'dbe4ab04fc5cda373b39eb97840fd888'
+         'dfd11956dfeaf0446968f4f92d19af4e'
          'd30e3bfb68f34f76342630b12f205f01')
