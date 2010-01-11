@@ -1,11 +1,11 @@
 #Maintainer Gergely Imreh <imrehgATgmailDOTcom>
 pkgname=kernel26-acer-bfs
-_basekernel=2.6.32.2
+_basekernel=2.6.32.3
 _bfskernel=2.6.32
 _ckver=ck2
 _kernelname=${pkgname:8}
 pkgver=${_basekernel}
-pkgrel=2
+pkgrel=1
 pkgdesc="Greg's Acer Travelmate version of the Linux Kernel and modules, with BFS"
 arch=(i686)
 license=('GPL2')
@@ -186,7 +186,7 @@ build() {
   # remove firmware, as separate package provides them.
   rm -fr ${pkgdir}/lib/firmware
 }
-md5sums=('9809778a867dfd3d6811a2f929256334'
-         '8f643ce106ebe22fa0ffbf1193c2e54d'
-         'be82a17db13c08f4873f1a059b49671b'
+md5sums=('730045c2c7f7e6618db3c4d4d7094853'
+         'cec9901bd8b7435927d2b59efb680386'
+         'e3589fb7697be8d960882fb6c910d1eb'
          'd30e3bfb68f34f76342630b12f205f01')
