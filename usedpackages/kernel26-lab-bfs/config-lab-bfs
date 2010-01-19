@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
-# Linux kernel version: 2.6.32.3
-# Thu Jan  7 12:57:40 2010
+# Linux kernel version: 2.6.32.4
+# Tue Jan 19 10:46:36 2010
 #
 # CONFIG_64BIT is not set
 CONFIG_X86_32=y
@@ -138,7 +138,7 @@ CONFIG_HAVE_PERF_EVENTS=y
 #
 CONFIG_PERF_EVENTS=y
 CONFIG_EVENT_PROFILE=y
-CONFIG_PERF_COUNTERS=y
+# CONFIG_PERF_COUNTERS is not set
 # CONFIG_DEBUG_PERF_USE_VMALLOC is not set
 CONFIG_VM_EVENT_COUNTERS=y
 CONFIG_PCI_QUIRKS=y
