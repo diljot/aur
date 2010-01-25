@@ -1,6 +1,6 @@
 #Maintainer Gergely Imreh <imrehgATgmailDOTcom>
 pkgname=kernel26-acer-bfs
-_basekernel=2.6.32.4
+_basekernel=2.6.32.5
 _bfskernel=2.6.32
 _ckver=ck2
 _kernelname=${pkgname:8}
@@ -186,7 +186,7 @@ build() {
   # remove firmware, as separate package provides them.
   rm -fr ${pkgdir}/lib/firmware
 }
-md5sums=('471e0fe07e27796f041ecb990302ccc4'
-         '58487f921d3ca31aabd8fa79d92c85aa'
-         '921d7069cb90129d7b33fc94d7201eba'
+md5sums=('942f676ea51c8ee53212d2f87ed60551'
+         'cdac908588fefb37c33d2da09802ac3a'
+         '6aad7c190bbf2cecc6227047cda27862'
          'd30e3bfb68f34f76342630b12f205f01')
