@@ -1,6 +1,6 @@
 #Maintainer Gergely Imreh <imrehgATgmailDOTcom>
 pkgname=kernel26-lab-bfs
-_basekernel=2.6.32.4
+_basekernel=2.6.32.5
 _bfskernel=2.6.32
 _ckver=ck2
 _kernelname=${pkgname:8}
@@ -186,7 +186,7 @@ build() {
   # remove firmware, as separate package provides them.
   rm -fr ${pkgdir}/lib/firmware
 }
-md5sums=('471e0fe07e27796f041ecb990302ccc4'
-         '4d6c6feb71c48672db3553cc71734efe'
-         '48e3a35624c6b7a5a0f9b929fc9b9c95'
+md5sums=('942f676ea51c8ee53212d2f87ed60551'
+         '1cafbb7242907d3a5a923eac0e9219c2'
+         'f022fc5bddc35e71dc40b9bcb40ec287'
          'd30e3bfb68f34f76342630b12f205f01')
