@@ -1,6 +1,6 @@
 #Maintainer Gergely Imreh <imrehgATgmailDOTcom>
 pkgname=kernel26-eee-bfs
-_basekernel=2.6.32.5
+_basekernel=2.6.32.6
 _bfskernel=2.6.32
 _ckver=ck2
 _kernelname=${pkgname:8}
@@ -186,7 +186,7 @@ build() {
   # remove firmware, as separate package provides them.
   rm -fr ${pkgdir}/lib/firmware
 }
-md5sums=('942f676ea51c8ee53212d2f87ed60551'
-         '19d1458673dbb8e491a6e94bf73b987f'
-         'f300412d197a45a690d0914e2f9c500b'
+md5sums=('5ad2ea7b6aed2d857dd9bb5ae03588e4'
+         'a514176d5446d5e241fb7174b87199d8'
+         'dc60489d50548ddc6b275d1bb7276157'
          'd30e3bfb68f34f76342630b12f205f01')
