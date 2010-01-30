@@ -1,6 +1,3 @@
-# $Id: PKGBUILD 22035 2008-12-21 10:00:17Z tpowa $
-# Maintainer: Tobias Powalowski <tpowa@archlinux.org>
-# Maintainer: Thomas Baechler <thomas@archlinux.org>
 pkgname=kernel26-acer-greg
 _basekernel=2.6.32.2
 _kernelname=${pkgname:8}
@@ -9,7 +6,6 @@ pkgrel=1
 pkgdesc="Greg's Acer Travelmate version of the Linux Kernel and modules"
 arch=(i686)
 license=('GPL2')
-groups=('greg')
 url="http://www.kernel.org"
 backup=(etc/mkinitcpio.d/${pkgname}.preset)
 depends=('coreutils' 'module-init-tools' 'mkinitcpio>=0.5.18')
@@ -108,8 +104,6 @@ build() {
   # add inotify.h
   mkdir -p ${pkgdir}/usr/src/linux-${_kernver}/include/linux
   cp include/linux/inotify.h ${pkgdir}/usr/src/linux-${_kernver}/include/linux/
-  # add CLUSTERIP file for iptables
-  mkdir -p ${pkgdir}/usr/src/linux-${_kernver}/net/ipv4/netfilter/
   # add wireless headers
   mkdir -p ${pkgdir}/usr/src/linux-${_kernver}/net/mac80211/
   cp net/mac80211/*.h ${pkgdir}/usr/src/linux-${_kernver}/net/mac80211/
@@ -118,19 +112,17 @@ build() {
   # http://bugs.archlinux.org/task/9912
   mkdir -p ${pkgdir}/usr/src/linux-${_kernver}/drivers/media/dvb/dvb-core
   cp drivers/media/dvb/dvb-core/*.h ${pkgdir}/usr/src/linux-${_kernver}/drivers/media/dvb/dvb-core/
-
-  ### add dvb headers for external modules
-  ### in reference to:
-  ### http://bugs.archlinux.org/task/11194
-  ## mkdir -p ${pkgdir}/usr/src/linux-${_kernver}/include/config/dvb/
-  ## cp include/config/dvb/*.h ${pkgdir}/usr/src/linux-${_kernver}/include/config/dvb/
-
+  # add dvb headers for external modules
+  # in reference to:
+  # http://bugs.archlinux.org/task/11194
+  mkdir -p ${pkgdir}/usr/src/linux-${_kernver}/include/config/dvb/
+  cp include/config/dvb/*.h ${pkgdir}/usr/src/linux-${_kernver}/include/config/dvb/
   # add dvb headers for http://mcentral.de/hg/~mrec/em28xx-new
   # in reference to:
   # http://bugs.archlinux.org/task/13146
   mkdir -p ${pkgdir}/usr/src/linux-${_kernver}/drivers/media/dvb/frontends/
-  cp drivers/media/dvb/frontends/lgdt330x.h ${pkgdir}/usr/src/linux-${_kernver}/drivers/media/dvb/f$
-  cp drivers/media/video/msp3400-driver.h ${pkgdir}/usr/src/linux-${_kernver}/drivers/media/dvb/fro$
+  cp drivers/media/dvb/frontends/lgdt330x.h ${pkgdir}/usr/src/linux-${_kernver}/drivers/media/dvb/frontends/
+  cp drivers/media/video/msp3400-driver.h ${pkgdir}/usr/src/linux-${_kernver}/drivers/media/dvb/frontends/
   # add xfs and shmem for aufs building
   mkdir -p ${pkgdir}/usr/src/linux-${_kernver}/fs/xfs
   mkdir -p ${pkgdir}/usr/src/linux-${_kernver}/mm
@@ -152,6 +144,8 @@ build() {
   done
 
   cd ${pkgdir}/usr/src/linux-${_kernver}/include && ln -s asm-$KARCH asm
+  # add header for aufs2-util
+  cp -a ${srcdir}/linux-$_basekernel/include/asm-generic/bitsperlong.h ${pkgdir}/usr/src/linux-${_kernver}/include/asm/
 
   chown -R root.root ${pkgdir}/usr/src/linux-${_kernver}
   find ${pkgdir}/usr/src/linux-${_kernver} -type d -exec chmod 755 {} \;

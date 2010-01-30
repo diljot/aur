@@ -24,12 +24,14 @@ post_install () {
 post_upgrade() {
   pacman -Q grub &>/dev/null
   hasgrub=$?
+  pacman -Q grub2 &>/dev/null
+  hasgrub2=$?
   pacman -Q lilo &>/dev/null
   haslilo=$?
   # reminder notices
   if [ $haslilo -eq 0 ]; then
     echo ">>>"
-    if [ $hasgrub -eq 0 ]; then
+    if [ $hasgrub -eq 0 -o $hasgrub2 -eq 0 ]; then
       echo ">>> If you use the LILO bootloader, you should run 'lilo' before rebooting."
     else
       echo ">>> You appear to be using the LILO bootloader. You should run"
@@ -38,7 +40,7 @@ post_upgrade() {
     echo ">>>"
   fi
 
-  if grep "/boot" /etc/fstab 2>&1 >/dev/null; then
+  if grep "^[^#]*/boot" /etc/fstab 2>&1 >/dev/null; then
     if ! grep "/boot" /etc/mtab 2>&1 >/dev/null; then
       echo "WARNING: /boot appears to be a seperate partition but is not mounted"
       echo "         This is most likely not what you want.  Please mount your /boot"
@@ -127,7 +129,6 @@ if [ "`vercmp $2 2.6.19`" -lt 0 ]; then
 and are using an Intel chipset, append 'earlymodules=piix' to the
 kernel commandline"
 else
-#  /sbin/mkinitcpio -p kernel26
   /sbin/mkinitcpio -p kernel26${KERNEL_NAME}
 fi
 if [ "`vercmp $2 2.6.21`" -lt 0 ]; then
@@ -141,7 +142,7 @@ if [ "`vercmp $2 2.6.21`" -lt 0 ]; then
 fi
 }
 
-op=$1
-shift
-
-$op $*
+post_remove() {
+  rm -f /boot/kernel26${KERNEL_NAME}.img
+  rm -f /boot/kernel26${KERNEL_NAME}-fallback.img
+}
