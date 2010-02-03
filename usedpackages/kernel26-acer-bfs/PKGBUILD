@@ -5,7 +5,7 @@ _bfskernel=2.6.32
 _ckver=ck2
 _kernelname=${pkgname:8}
 pkgver=${_basekernel}
-pkgrel=1
+pkgrel=2
 pkgdesc="Greg's Acer Travelmate version of the Linux Kernel and modules, with BFS"
 arch=(i686)
 license=('GPL2')
@@ -187,6 +187,6 @@ build() {
   rm -fr ${pkgdir}/lib/firmware
 }
 md5sums=('5ad2ea7b6aed2d857dd9bb5ae03588e4'
-         '42f2c82ccf01c8dcd9e3d537726af58b'
+         '074b80ea0302458c3134c272627aea36'
          'f86b2490594066bcf07ab1cb121866b8'
          'd30e3bfb68f34f76342630b12f205f01')
