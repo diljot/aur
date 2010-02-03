@@ -1,5 +1,5 @@
 pkgname=kernel26-acer-greg
-_basekernel=2.6.32.2
+_basekernel=2.6.32.7
 _kernelname=${pkgname:8}
 pkgver=${_basekernel}
 pkgrel=1
@@ -175,6 +175,6 @@ build() {
   # remove firmware, as separate package provides them.
   rm -fr ${pkgdir}/lib/firmware
 }
-md5sums=('9809778a867dfd3d6811a2f929256334'
-         '2df344694d9fe8340eebb7ee15291a68'
-         'ade6c39ba8ac8541ea3eb8f4420ff369')
+md5sums=('d59aca06609cedabe4d6d161d9f11113'
+         '5fae43d59b8bf415ec847bce41c775f8'
+         '901afeb18910a57e0190a4a54cb8519f')
