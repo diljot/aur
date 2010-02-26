@@ -1,12 +1,10 @@
 #Maintainer Gergely Imreh <imrehgATgmailDOTcom>
 pkgname=kernel26-lab-bfs
-_basekernel=2.6.32.6
-_bfskernel=2.6.32
-_ckver=ck2
+_basekernel=2.6.33
 _kernelname=${pkgname:8}
 pkgver=${_basekernel}
-pkgrel=2
-pkgdesc="Greg's EeePC version of the Linux Kernel and modules, with BFS"
+pkgrel=1
+pkgdesc="Lab Edition ofthe Linux Kernel and modules (ThinkPad R50e), with BFS"
 arch=(i686)
 license=('GPL2')
 groups=('greg')
@@ -20,8 +18,8 @@ source=(ftp://ftp.kernel.org/pub/linux/kernel/v2.6/linux-${pkgver}.tar.bz2
         # standard config files for mkinitcpio ramdisk
         kernel26.preset
         # BFS patch
-        http://www.kernel.org/pub/linux/kernel/people/ck/patches/2.6/${_bfskernel}/${_bfskernel}-${_ckver}/patch-${_bfskernel}-${_ckver}.gz
-	)
+        http://ck.kolivas.org/patches/bfs/2.6.33-rc8-sched-bfs-314.patch
+        )
 build() {
   KARCH=x86
 
@@ -29,7 +27,7 @@ build() {
   cd ${srcdir}/linux-${pkgver}
 
   # Patch kernel, e.g. with BFS code
-  patch -p1 < ../patch-${_bfskernel}-${_ckver}
+  patch -p1 < ../*.patch
 
   # Change kernel name in kernel26.preset and kernel26.install
   sed \
@@ -74,7 +72,7 @@ build() {
     ${pkgdir}/usr/src/linux-${_kernver}/.config
   mkdir -p ${pkgdir}/usr/src/linux-${_kernver}/include
 
-  for i in acpi asm-{generic,x86} config linux math-emu media net pcmcia scsi sound trace video; do
+  for i in acpi asm-generic config linux math-emu media net pcmcia scsi sound trace video; do
     cp -a include/$i ${pkgdir}/usr/src/linux-${_kernver}/include/
   done
 
@@ -186,7 +184,7 @@ build() {
   # remove firmware, as separate package provides them.
   rm -fr ${pkgdir}/lib/firmware
 }
-md5sums=('5ad2ea7b6aed2d857dd9bb5ae03588e4'
-         '764e0241e33bd758d56889c6c5babc07'
-         '99e4bb8cbe756e766d976ef9f23bfbde'
-         'd30e3bfb68f34f76342630b12f205f01')
+md5sums=('c3883760b18d50e8d78819c54d579b00'
+         'aa42db67a75838f20383a74392a0d514'
+         '3c682666babae058cdad3ded4e422713'
+         '1b32d792e4bbb0537dbc20fd9ba9a397')
