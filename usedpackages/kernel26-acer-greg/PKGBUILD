@@ -1,5 +1,5 @@
 pkgname=kernel26-acer-greg
-_basekernel=2.6.32.7
+_basekernel=2.6.33
 _kernelname=${pkgname:8}
 pkgver=${_basekernel}
 pkgrel=1
@@ -65,7 +65,7 @@ build() {
     ${pkgdir}/usr/src/linux-${_kernver}/.config
   mkdir -p ${pkgdir}/usr/src/linux-${_kernver}/include
 
-  for i in acpi asm-{generic,x86} config linux math-emu media net pcmcia scsi sound trace video; do
+  for i in acpi asm-generic config linux math-emu media net pcmcia scsi sound trace video; do
     cp -a include/$i ${pkgdir}/usr/src/linux-${_kernver}/include/
   done
 
@@ -175,6 +175,6 @@ build() {
   # remove firmware, as separate package provides them.
   rm -fr ${pkgdir}/lib/firmware
 }
-md5sums=('d59aca06609cedabe4d6d161d9f11113'
-         '5fae43d59b8bf415ec847bce41c775f8'
-         '901afeb18910a57e0190a4a54cb8519f')
+md5sums=('c3883760b18d50e8d78819c54d579b00'
+         'be4385aca60ab9c614c9c1601c0dcaf7'
+         'b9b7e774c3ad4e50f488958ffe671302')

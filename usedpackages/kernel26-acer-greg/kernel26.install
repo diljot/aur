@@ -2,7 +2,7 @@
 # arg 2:  the old package version
 
 KERNEL_NAME=-acer-greg
-KERNEL_VERSION=2.6.32.7-acer-greg
+KERNEL_VERSION=2.6.33-acer-greg
 
 post_install () {
   # updating module dependencies
