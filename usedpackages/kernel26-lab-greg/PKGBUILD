@@ -1,9 +1,9 @@
 pkgname=kernel26-lab-greg
-_basekernel=2.6.32.7
+_basekernel=2.6.33
 _kernelname=${pkgname:8}
 _extradir=""
 pkgver=${_basekernel}
-pkgrel=2
+pkgrel=1
 pkgdesc="Lab Edition ofthe Linux Kernel and modules (ThinkPad R50e)"
 arch=(i686)
 license=('GPL2')
@@ -17,7 +17,7 @@ source=(ftp://ftp.kernel.org/pub/linux/kernel/v2.6/${_extradir}linux-${_basekern
         config${_kernelname}
         # standard config files for mkinitcpio ramdisk
         kernel26.preset
-	)
+        )
 build() {
   KARCH=x86
 
@@ -70,7 +70,7 @@ build() {
     ${pkgdir}/usr/src/linux-${_kernver}/.config
   mkdir -p ${pkgdir}/usr/src/linux-${_kernver}/include
 
-  for i in acpi asm-{generic,x86} config linux math-emu media net pcmcia scsi sound video; do
+  for i in acpi asm-generic config linux math-emu media net pcmcia scsi sound video; do
     cp -a include/$i ${pkgdir}/usr/src/linux-${_kernver}/include/
   done
 
@@ -164,6 +164,6 @@ build() {
   fi
 
 }
-md5sums=('d59aca06609cedabe4d6d161d9f11113'
-         'b00a047b55bde264ad87c710f62a53e5'
-         '0b5ef607bc2d5a87024153c94d8f5849')
+md5sums=('c3883760b18d50e8d78819c54d579b00'
+         '8c1d2ae83543c8eb098788763c9fea3d'
+         '70141d1838ccbd3b835f5f7c9d7e1372')
