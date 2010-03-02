@@ -1,10 +1,9 @@
-# Contributor: G.Imreh <imrehg(at)gmail(dot)com>
+# Maintainer: Gergely Imreh <imrehg(at)gmail(dot)com>
 pkgname=pyxplot
-pkgver=0.7.0
-pkgrel=5
+pkgver=0.7.1
+pkgrel=1
 pkgdesc="PyXPlot is a command-line graphing package with a simple interface that produces publication-quality output."
 arch=('i686' 'x86_64')
-install=(${pkgname}.install)
 license=('GPL2')
 url="http://www.pyxplot.org.uk/"
 provides=('pyxplot')
@@ -12,13 +11,16 @@ depends=('python>=2.3' 'texlive-core' 'imagemagick' 'bash')
 optdepends=('python-scipy, python-numpy: fit, spline, integration of functions, etc' 
             'gv: used for the X11 terminal')
 source=(http://www.pyxplot.org.uk/src/${pkgname}_${pkgver}.tar.gz)
-md5sums=('c6efdc1e020a64e3480338eebdd42c45')
 build() {
-  cd "$srcdir/$pkgname"
+  cd ${srcdir}/${pkgname}
   ./configure --prefix=/usr
   make || return 1
-  mkdir $pkdir/usr
-  make USRDIR="$pkgdir/usr" MANDIR="$pkgdir/usr/share/man/man1" install || return 1
+  mkdir ${pkdir}/usr
+  make USRDIR="${pkgdir}/usr" MANDIR="${pkgdir}/usr/share/man/man1" install || return 1
+
   rm -f $pkgdir/usr/bin/pyxplot
   rm -f $pkgdir/usr/bin/pyxplot_watch  
+  ln -s /usr/share/pyxplot/__init__.py ${pkgdir}/usr/bin/pyxplot
+  ln -s /usr/share/pyxplot/pyxplot_watch ${pkgdir}/usr/bin/pyxplot_watch
 }
+md5sums=('269ceb4a1c77aaf4732bc5ae9655dba7')
