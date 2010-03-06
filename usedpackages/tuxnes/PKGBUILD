@@ -1,0 +1,29 @@
+# Maintainer: Marcelo Cavalcante - aka kalib <kalib@archlinux-br.org>
+# Contributor: arjan <arjan@archlinux.org>
+# Contributor: Tom Newsom <Jeepster@gmx.co.uk>
+
+pkgname=tuxnes
+pkgver=0.75
+pkgrel=3
+pkgdesc="A geat public-domain NES emulator, based on Nestra"
+arch=("i686")
+url="http://tuxnes.sourceforge.net/"
+license=('GPL')
+source=("http://prdownloads.sourceforge.net/$pkgname/$pkgname-$pkgver.tar.gz"
+        'http://bugs.gentoo.org/attachment.cgi?id=40477')
+build() {
+
+  cd ${srcdir}/${pkgname}-${pkgver}
+
+  # fix bugs to let it build
+  # 1) http://bugs.gentoo.org/attachment.cgi?id=40477&action=view
+  patch -p 1 < "../attachment.cgi?id=40477"
+  # 2) AUR
+  sed -i 's/X_ShmAttach/XShmAttach/g' x11.c 
+
+  ./configure --prefix=/usr
+  make || return 1
+  make prefix=${pkgdir}/usr install
+}
+md5sums=('5db0cd42dfdff3e681805e93b4867c43'
+         '39e9a0b8849012419b53f70ddc8a8127')
