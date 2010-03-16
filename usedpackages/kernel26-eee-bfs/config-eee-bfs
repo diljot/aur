@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
-# Linux kernel version: 2.6.33
-# Thu Feb 25 14:45:52 2010
+# Linux kernel version: 2.6.33.1
+# Tue Mar 16 08:24:54 2010
 #
 # CONFIG_64BIT is not set
 CONFIG_X86_32=y
@@ -1172,7 +1172,7 @@ CONFIG_TIFM_7XX1=m
 # CONFIG_CS5535_MFGPT is not set
 # CONFIG_HP_ILO is not set
 # CONFIG_ISL29003 is not set
-CONFIG_DS1682=m
+# CONFIG_DS1682 is not set
 # CONFIG_TI_DAC7512 is not set
 # CONFIG_C2PORT is not set
 
@@ -3386,7 +3386,6 @@ CONFIG_USB_IP_HOST=m
 # CONFIG_ALTERA_PCIE_CHDMA is not set
 # CONFIG_R8187SE is not set
 # CONFIG_RTL8192E is not set
-# CONFIG_INPUT_MIMIO is not set
 # CONFIG_TRANZPORT is not set
 
 #
