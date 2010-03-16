@@ -1,6 +1,7 @@
 #Maintainer Gergely Imreh <imrehgATgmailDOTcom>
 pkgname=kernel26-acer-bfs
-_basekernel=2.6.33
+_basekernel=2.6.33.1
+_ckver=315
 _kernelname=${pkgname:8}
 pkgver=${_basekernel}
 pkgrel=1
@@ -18,7 +19,7 @@ source=(ftp://ftp.kernel.org/pub/linux/kernel/v2.6/linux-${pkgver}.tar.bz2
         # standard config files for mkinitcpio ramdisk
         kernel26.preset
         # BFS patch
-        http://ck.kolivas.org/patches/bfs/2.6.33-rc8-sched-bfs-314.patch
+        http://ck.kolivas.org/patches/bfs/2.6.33-sched-bfs-${_ckver}.patch
         )
 build() {
   KARCH=x86
@@ -184,7 +185,7 @@ build() {
   # remove firmware, as separate package provides them.
   rm -fr ${pkgdir}/lib/firmware
 }
-md5sums=('c3883760b18d50e8d78819c54d579b00'
-         '52d62e6445ee4da026d3a4dce39c0a3c'
-         'fcdbb46bb3ad2d819da09615c28f6778'
-         '1b32d792e4bbb0537dbc20fd9ba9a397')
+md5sums=('73b514ec918b88a45656be191b1ee226'
+         'a0a0b9c40b1a347df367c098599efad0'
+         'cbf5f617372650ecd10ca7e94b0210df'
+         'd4152678bafdc5d133d6dcc245d74f07')
