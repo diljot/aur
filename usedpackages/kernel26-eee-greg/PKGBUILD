@@ -1,6 +1,6 @@
 # Maintainer: Gergely Imreh <imrehgATgmailDOTcom>
 pkgname=kernel26-eee-greg
-_basekernel=2.6.33
+_basekernel=2.6.33.1
 _kernelname=${pkgname#kernel26}
 pkgver=${_basekernel}
 pkgrel=1
@@ -177,6 +177,6 @@ build() {
   # remove firmware, as separate package provides them.
   rm -fr ${pkgdir}/lib/firmware
 }
-md5sums=('c3883760b18d50e8d78819c54d579b00'
-         '6657770bc3954f10726ff3f4a70b952f'
-         '12296431008cc48d8e6c59bb65921de6')
+md5sums=('73b514ec918b88a45656be191b1ee226'
+         'af562ab8b35d72260d57ae2912125143'
+         '26f4d381098d76b1d4c7eae9c61e1b32')

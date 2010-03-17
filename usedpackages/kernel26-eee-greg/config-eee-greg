@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
-# Linux kernel version: 2.6.33
-# Thu Feb 25 21:40:46 2010
+# Linux kernel version: 2.6.33.1
+# Tue Mar 16 16:24:17 2010
 #
 # CONFIG_64BIT is not set
 CONFIG_X86_32=y
@@ -3387,7 +3387,6 @@ CONFIG_USB_IP_HOST=m
 # CONFIG_ALTERA_PCIE_CHDMA is not set
 # CONFIG_R8187SE is not set
 # CONFIG_RTL8192E is not set
-# CONFIG_INPUT_MIMIO is not set
 # CONFIG_TRANZPORT is not set
 
 #
