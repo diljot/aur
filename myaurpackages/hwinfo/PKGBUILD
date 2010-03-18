@@ -2,9 +2,9 @@
 # Contributor: Gergely Imreh <imrehgATgmailDOTcom>
 # Originally contributed by champus, madeye, Ranguvar and ninja_pt
 pkgname=hwinfo
-pkgver=16.12
-_minorver=1.8
-pkgrel=5
+pkgver=17.0
+_minorver=1.1
+pkgrel=1
 pkgdesc="A simple program that lists results from the hardware detection library."
 arch=('i686' 'x86_64')
 url="http://www.opensuse.org"
@@ -21,14 +21,12 @@ build() {
 
   cd ${srcdir}/${pkgname}-${pkgver}
 
-  sed -i '145,149 d' src/hd/kbd.c
-
 # Fix Makefile using /usr/lib64 instead of /usr/lib - it broke x86_64, possibly i686 too. 
-# Comment if this fix breaks it - untested on i686 or anything special.
+# Comment if this fix breaks it.
   sed -i 's_usr/lib64_usr/lib_' src/hd/Makefile 
 
   make -j1 || return 1
   make DESTDIR=${pkgdir} install || return 1
 
 }
-md5sums=('43daed6147d1d53771bb4c0702380db7')
+md5sums=('4a9f5e986477e698a8117f76ade3dfa4')
