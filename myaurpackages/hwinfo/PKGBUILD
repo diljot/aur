@@ -3,8 +3,8 @@
 # Originally contributed by champus, madeye, Ranguvar and ninja_pt
 pkgname=hwinfo
 pkgver=17.0
-_minorver=1.1
-pkgrel=1
+_minorver=2.1
+pkgrel=2
 pkgdesc="A simple program that lists results from the hardware detection library."
 arch=('i686' 'x86_64')
 url="http://www.opensuse.org"
@@ -12,7 +12,8 @@ license=('GPL2')
 depends=('hal' 'perl' 'libx86emu')
 makedepends=('sysfsutils' 'rpmextract' 'flex')
 options=('!emptydirs')
-source=("http://download.opensuse.org/source/factory/repo/oss/suse/src/${pkgname}-${pkgver}-${_minorver}.src.rpm")
+source=("http://download.opensuse.org/source/factory/repo/oss/suse/src/${pkgname}-${pkgver}-${_minorver}.src.rpm"
+        "kbd.patch")
 build() {
 
   cd ${srcdir}
@@ -20,6 +21,9 @@ build() {
   tar -xjf ${pkgname}-${pkgver}.tar.bz2
 
   cd ${srcdir}/${pkgname}-${pkgver}
+
+# Apply patch for custom ioctl
+  patch -p 0 < ../kbd.patch
 
 # Fix Makefile using /usr/lib64 instead of /usr/lib - it broke x86_64, possibly i686 too. 
 # Comment if this fix breaks it.
@@ -29,4 +33,5 @@ build() {
   make DESTDIR=${pkgdir} install || return 1
 
 }
-md5sums=('4a9f5e986477e698a8117f76ade3dfa4')
+md5sums=('264dff336ad0912a4e82518a08c1893a'
+         '1500ecfa26f6aaf4d7967eea74e86e5d')
