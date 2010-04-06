@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
-# Linux kernel version: 2.6.33
-# Fri Feb 26 09:10:01 2010
+# Linux kernel version: 2.6.33.2
+# Sun Apr  4 19:07:43 2010
 #
 # CONFIG_64BIT is not set
 CONFIG_X86_32=y
@@ -2598,9 +2598,9 @@ CONFIG_DRM_KMS_HELPER=m
 # CONFIG_DRM_R128 is not set
 # CONFIG_DRM_RADEON is not set
 # CONFIG_DRM_I810 is not set
-CONFIG_DRM_I830=m
+# CONFIG_DRM_I830 is not set
 CONFIG_DRM_I915=m
-# CONFIG_DRM_I915_KMS is not set
+CONFIG_DRM_I915_KMS=y
 # CONFIG_DRM_MGA is not set
 # CONFIG_DRM_SIS is not set
 # CONFIG_DRM_VIA is not set
@@ -3363,7 +3363,6 @@ CONFIG_COMEDI_USB_DRIVERS=m
 # CONFIG_RTL8192SU is not set
 # CONFIG_RTL8192U is not set
 # CONFIG_RTL8192E is not set
-# CONFIG_INPUT_MIMIO is not set
 # CONFIG_TRANZPORT is not set
 
 #
