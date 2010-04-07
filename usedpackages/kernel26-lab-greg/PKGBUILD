@@ -3,7 +3,7 @@ _basekernel=2.6.33.2
 _kernelname=${pkgname:8}
 _extradir=""
 pkgver=${_basekernel}
-pkgrel=1
+pkgrel=2
 pkgdesc="Lab Edition ofthe Linux Kernel and modules (ThinkPad R50e)"
 arch=(i686)
 license=('GPL2')
@@ -165,5 +165,5 @@ build() {
 
 }
 md5sums=('80c5ff544b0ee4d9b5d8b8b89d4a0ef9'
-         '2c694b589462bcccbe856b36b7b64171'
+         '1484d08037aa0038bd0647c9b42371c4'
          'cf40c67edf265e385c8af00a17b32852')
