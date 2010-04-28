@@ -2,7 +2,7 @@
 # arg 2:  the old package version
 
 KERNEL_NAME=-eee-bfs
-KERNEL_VERSION=2.6.33.2-eee-bfs
+KERNEL_VERSION=2.6.33.3-eee-bfs
 
 post_install () {
   # updating module dependencies
