@@ -1,9 +1,9 @@
 pkgname=kernel26-lab-greg
-_basekernel=2.6.33.2
+_basekernel=2.6.33.3
 _kernelname=${pkgname:8}
 _extradir=""
 pkgver=${_basekernel}
-pkgrel=2
+pkgrel=1
 pkgdesc="Lab Edition ofthe Linux Kernel and modules (ThinkPad R50e)"
 arch=(i686)
 license=('GPL2')
@@ -164,6 +164,6 @@ build() {
   fi
 
 }
-md5sums=('80c5ff544b0ee4d9b5d8b8b89d4a0ef9'
-         '1484d08037aa0038bd0647c9b42371c4'
-         'cf40c67edf265e385c8af00a17b32852')
+md5sums=('f651e9aafb2f910812257a63bcd639f2'
+         '5b1b5dadbd01f80678d563e57bf370f3'
+         '2547b2d21838a77c0749574e5e63b9fa')
