@@ -1,6 +1,7 @@
 #Maintainer Gergely Imreh <imrehgATgmailDOTcom>
 pkgname=kernel26-lab-bfs
-_basekernel=2.6.33
+_basekernel=2.6.33.3
+_ckver=316
 _kernelname=${pkgname:8}
 pkgver=${_basekernel}
 pkgrel=1
@@ -18,7 +19,7 @@ source=(ftp://ftp.kernel.org/pub/linux/kernel/v2.6/linux-${pkgver}.tar.bz2
         # standard config files for mkinitcpio ramdisk
         kernel26.preset
         # BFS patch
-        http://ck.kolivas.org/patches/bfs/2.6.33-rc8-sched-bfs-314.patch
+        http://ck.kolivas.org/patches/bfs/2.6.33-sched-bfs-${_ckver}.patch
         )
 build() {
   KARCH=x86
@@ -184,7 +185,7 @@ build() {
   # remove firmware, as separate package provides them.
   rm -fr ${pkgdir}/lib/firmware
 }
-md5sums=('c3883760b18d50e8d78819c54d579b00'
-         'aa42db67a75838f20383a74392a0d514'
-         '3c682666babae058cdad3ded4e422713'
-         '1b32d792e4bbb0537dbc20fd9ba9a397')
+md5sums=('f651e9aafb2f910812257a63bcd639f2'
+         '9903262b24091950f54e2d63c4efe4d4'
+         'e66df8a2e5581d5a78e933b8b6c7e0d0'
+         'bc692f8e0495bc828922f8129a0f740e')
