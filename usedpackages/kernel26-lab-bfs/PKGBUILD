@@ -1,7 +1,7 @@
 #Maintainer Gergely Imreh <imrehgATgmailDOTcom>
 pkgname=kernel26-lab-bfs
-_basekernel=2.6.33.3
-_ckver=316
+_basekernel=2.6.34
+_ckpatch=2.6.34-sched-bfs-318
 _kernelname=${pkgname:8}
 pkgver=${_basekernel}
 pkgrel=1
@@ -19,7 +19,7 @@ source=(ftp://ftp.kernel.org/pub/linux/kernel/v2.6/linux-${pkgver}.tar.bz2
         # standard config files for mkinitcpio ramdisk
         kernel26.preset
         # BFS patch
-        http://ck.kolivas.org/patches/bfs/2.6.33-sched-bfs-${_ckver}.patch
+        http://ck.kolivas.org/patches/bfs/${_ckpatch}.patch
         )
 build() {
   KARCH=x86
@@ -28,7 +28,7 @@ build() {
   cd ${srcdir}/linux-${pkgver}
 
   # Patch kernel, e.g. with BFS code
-  patch -p1 < ../*.patch
+  patch -p1 < ../${_ckpatch}.patch
 
   # Change kernel name in kernel26.preset and kernel26.install
   sed \
@@ -185,7 +185,7 @@ build() {
   # remove firmware, as separate package provides them.
   rm -fr ${pkgdir}/lib/firmware
 }
-md5sums=('f651e9aafb2f910812257a63bcd639f2'
-         '9903262b24091950f54e2d63c4efe4d4'
-         'e66df8a2e5581d5a78e933b8b6c7e0d0'
-         'bc692f8e0495bc828922f8129a0f740e')
+md5sums=('10eebcb0178fb4540e2165bfd7efc7ad'
+         '334e8ef182289b8d54b91b6b9ba15c8f'
+         'fc576bb219bed8765a5901bf3c05976f'
+         'e47d527b10d799281211e6ac677edf3c')
