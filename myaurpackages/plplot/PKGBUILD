@@ -2,22 +2,23 @@
 # Contributor: Eric Belanger <eric@archlinux.org>
 
 pkgname=plplot
-pkgver=5.9.4
-pkgrel=2
+pkgver=5.9.6
+pkgrel=1
 pkgdesc="A cross-platform software package for creating scientific plots"
 arch=('i686' 'x86_64')
 url="http://plplot.sourceforge.net/"
 license=("LGPL" "custom")
 depends=('libtool' 'tk')
 makedepends=('cmake')
-optdepends=('qhull : calculating convex hulls'
-            'agg : high quality rendering engine in C++' 
-            'swig : connects Plplot C library to Python, Java and Lua'
-            'gd : ability to output png, jpeg and gif files'
-            'qt : display plots, output various formats  using the Qt UI framework'
-            'wxgtk : displays plots using wxWidgets library'
-            'freetype2, ttf-freefont : enables use of ttf fonts for some drivers'
-            'cairo : displays plots and save to different file formats')
+optdepends=('qhull: calculating convex hulls'
+            'agg: high quality rendering engine in C++'
+            'swig: connects Plplot C library to Python, Java and Lua'
+            'gd: ability to output png, jpeg and gif files'
+            'qt: display plots, output various formats  using the Qt UI framework'
+            'wxgtk: displays plots using wxWidgets library'
+            'freetype2: enables use of ttf fonts for some drivers'
+            'ttf-freefont: enables use of ttf fonts for some drivers'
+            'cairo: displays plots and save to different file formats')
 options=('!libtool' '!makeflags')
 source=(http://downloads.sourceforge.net/sourceforge/plplot/${pkgname}-${pkgver}.tar.gz)
 build() {
@@ -28,4 +29,4 @@ build() {
   make DESTDIR=${pkgdir} install
   install -D -m644 Copyright ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
 }
-md5sums=('db172aaf0a7aa429b63d9bbd28637fd4')
+md5sums=('772c772bde3a107e5f06d21cefa7f6b6')
