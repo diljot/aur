@@ -122,13 +122,6 @@ build() {
   # http://bugs.archlinux.org/task/9912
   mkdir -p ${pkgdir}/usr/src/linux-${_kernver}/drivers/media/dvb/dvb-core
   cp drivers/media/dvb/dvb-core/*.h ${pkgdir}/usr/src/linux-${_kernver}/drivers/media/dvb/dvb-core/
-
-  ### add dvb headers for external modules
-  ### in reference to:
-  ### http://bugs.archlinux.org/task/11194
-  ## mkdir -p ${pkgdir}/usr/src/linux-${_kernver}/include/config/dvb/
-  ## cp include/config/dvb/*.h ${pkgdir}/usr/src/linux-${_kernver}/include/config/dvb/
-
   # add dvb headers for http://mcentral.de/hg/~mrec/em28xx-new
   # in reference to:
   # http://bugs.archlinux.org/task/13146
