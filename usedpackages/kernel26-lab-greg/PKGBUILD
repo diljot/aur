@@ -53,6 +53,8 @@ build() {
   #msg "Stopping build"
   #return 1
   ####################
+  # For debug
+  # make CONFIG_DEBUG_SECTION_MISMATCH=y bzImage modules || return 1
   make bzImage modules || return 1
   mkdir -p ${pkgdir}/{lib/modules,boot}
   make INSTALL_MOD_PATH=${pkgdir} modules_install || return 1
