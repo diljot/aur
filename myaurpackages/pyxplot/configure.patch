@@ -1,0 +1,35 @@
+--- configure.old	2010-08-28 12:15:31.000000000 +0800
++++ configure	2010-08-28 12:17:27.000000000 +0800
+@@ -197,7 +197,7 @@
+  rm -f conf.*
+  echo "YES"
+  echo "HAVE_READLINE=-D HAVE_READLINE=1" >> Makefile
+- echo "LINK_READLINE=-ltermcap -lreadline" >> Makefile
++ echo "LINK_READLINE=-lreadline" >> Makefile
+ else
+  rm -f conf.*
+  echo "NO"
+@@ -319,15 +319,6 @@
+ # 19. CHECK TO SEE WHETHER THIS SYSTEM HAS KPATHSEA HEADERS
+ 
+ echo $ECHO_N "Checking for libkpathsea-dev   ............. $ECHO_C"
+-if printf '#include <stdlib.h>\n#include <stdio.h>\n#include <kpathsea/kpathsea.h>\nint main() { return 0; }\n' | gcc -x c - -o conf.out > conf.stdout 2> conf.stderr
+-then
+- rm -f conf.*
+- echo "YES"
+- echo "HAVE_KPATHSEA=-D HAVE_KPATHSEA=1" >> Makefile
+- echo "LINK_KPATHSEA=-lkpathsea" >> Makefile
+- echo "KPSE_COMMAND=/dev/null" >> Makefile
+-else
+- rm -f conf.*
+  echo "NO"
+  echo "HAVE_KPATHSEA=-D NOHAVE_KPATHSEA=1" >> Makefile
+  echo "LINK_KPATHSEA=" >> Makefile
+@@ -343,7 +334,6 @@
+  else
+   echo "NO" ; echo "ERROR: Neither the header files for the library 'libkpathsea-dev', nor the program kpsewhich could not be found." >&2 ; exit
+  fi
+-fi
+ 
+ # 20. OUTPUT MAKEFILE
+ 

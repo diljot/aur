@@ -1,3 +1,11 @@
+pyxplot (0.8.2-1)
+
+  *  Catching up with upstream release
+  *  Disabling kpathsea and termcap library calls, as they seem to be
+     broken on Arch.
+
+ -- Gergely Imreh <imrehg@gmail.com>  Sat, 28 Aug 2010 13:30:00 +0800
+
 pyxplot (0.7.1-1) 
 
   * Upstream release with minor bug-fixes.
