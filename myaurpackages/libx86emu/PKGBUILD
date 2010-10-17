@@ -1,8 +1,8 @@
 # Maintainer: Gergely Imreh <imrehgATgmailDOTcom>
 pkgname=libx86emu
 pkgver=1.1
-_minorver=9.8
-pkgrel=27
+_minorver=9.9
+pkgrel=28
 pkgdesc="x86 emulation library"
 arch=('i686' 'x86_64')
 url="http://www.opensuse.org"
@@ -29,4 +29,4 @@ build() {
   install -D -m644 "LICENSE" "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 
 }
-md5sums=('386b7c10dd5781570723026f12b27765')
+md5sums=('5e1b64be543002a83d910edce1659cee')
