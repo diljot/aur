@@ -1,9 +1,9 @@
 #Maintainer: Gergely Imreh <imrehg(at)gmail(dot)com>
 pkgname=python-github2-git
-pkgver=20100709
+pkgver=20101027
 pkgrel=1
 pkgdesc="Github client in python, with issues support."
-depends=('python')
+depends=('python2')
 arch=('i686' 'x86_64')
 makedepends=('git')
 install=
@@ -30,7 +30,7 @@ build() {
   msg "GIT checkout done or server timeout"
 
   cd "${srcdir}/${_gitname}"
-  python setup.py install --root "${pkgdir}" || return 1
+  python2 setup.py install --root "${pkgdir}" || return 1
 
   install -m755 -d "${pkgdir}/usr/share/licenses/${pkgname}"
   install -m644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/" || return 1
