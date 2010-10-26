@@ -2,13 +2,13 @@
 # Contributor: Gergely Imreh <imrehgATgmailDOTcom>
 
 pkgname=pyfacebook-git
-pkgver=20090519
+pkgver=20101027
 pkgrel=1
 pkgdesc="A thin wrapper for accessing Facebook's RESTful API through Python."
 arch=('i686' 'x86_64')
 url="http://github.com/sciyoshi/pyfacebook/"
 license=('GPL')
-depends=('python')
+depends=('python2')
 makedepends=('git')
 provides=('pyfacebook')
 conflicts=('pyfacebook')
@@ -23,7 +23,7 @@ build() {
   msg "Connecting to GIT server...."
 
   if [ -d $_gitname ] ; then
-    cd ${_gitname} && git-pull origin
+    cd ${_gitname} && git pull origin
     msg "The local files are updated."
   else
     git clone ${_gitroot}
@@ -32,7 +32,9 @@ build() {
   msg "GIT checkout done or server timeout"
   msg "Starting make..."
 
-  rm -r "${srcdir}/${_gitname}-build"
+  if [ -d ${srcdir}/${_gitname}-build ] ; then
+    rm -r "${srcdir}/${_gitname}-build"
+  fi
   git clone "${srcdir}/${_gitname}" "${srcdir}/${_gitname}-build"
   cd "${srcdir}/${_gitname}-build"
 
@@ -40,7 +42,7 @@ build() {
   # BUILD HERE
   #
 
-  python setup.py build || return 1
-  python setup.py install --root=${pkgdir} || return 1
+  python2 setup.py build || return 1
+  python2 setup.py install --root=${pkgdir} || return 1
 } 
 
