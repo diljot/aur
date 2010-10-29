@@ -2,13 +2,13 @@
 # Contributor:  Gergely Imreh <imrehgATgmailDOTcom>
 pkgname=gclient-svn
 pkgver=72
-pkgrel=1
+pkgrel=2
 pkgdesc="Script to manage checkouts and updates for a set of client modules in various SCM repository locations."
 url="http://code.google.com/p/gclient/"
 arch=('i686' 'x86_64')
 license=('APACHE')
 makedepends=('subversion' 'autoconf')
-depends=('python' 'python-pymox')
+depends=('python2' 'python-pymox')
 provides=('gclient')
 _svntrunk=http://gclient.googlecode.com/svn/trunk/gclient
 _svnmod=gclient
