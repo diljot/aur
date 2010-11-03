@@ -196,19 +196,12 @@ build() {
   make DESTDIR=${pkgdir} install || return 1
   install -D -m644 ksrc/nucleus/udev/rtheap.rules ${pkgdir}/etc/udev/rules.d/rtheap.rules
   install -D -m644 ksrc/nucleus/udev/rtpipe.rules ${pkgdir}/etc/udev/rules.d/rtpipe.rules
+  rm -rf ${pkgdir}/dev
 
   # remove firmware, as separate package provides them.
   rm -fr ${pkgdir}/lib/firmware
 }
 md5sums=('f741879bcd3a5366a1bbe0ad5cdb7935'
-         '352b73926b1c7174fa8a2370ae43633e'
-         '70104cc22c2d8812ec340d60bb47a0db'
-         '1ee31275830c77a024e27655d2fe8f69')
-md5sums=('f741879bcd3a5366a1bbe0ad5cdb7935'
-         'e1bc03ab712e55a5051159991b89cfdd'
-         '70104cc22c2d8812ec340d60bb47a0db'
-         '1ee31275830c77a024e27655d2fe8f69')
-md5sums=('f741879bcd3a5366a1bbe0ad5cdb7935'
-         '999bb700329293c112b5721eee64e60e'
+         '31aeee433b137829719caf5daba9656c'
          '70104cc22c2d8812ec340d60bb47a0db'
          '1ee31275830c77a024e27655d2fe8f69')
