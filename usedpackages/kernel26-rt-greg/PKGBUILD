@@ -5,7 +5,7 @@ _extradir=""
 _xenomaiver=2.5.5.2
 _adeosver=2.7-04
 pkgver=${_basekernel}
-pkgrel=1
+pkgrel=2
 pkgdesc="Lab Edition ofthe Linux Kernel and modules (ThinkPad R50e)"
 arch=(i686)
 license=('GPL2')
@@ -202,6 +202,6 @@ build() {
   rm -fr ${pkgdir}/lib/firmware
 }
 md5sums=('f741879bcd3a5366a1bbe0ad5cdb7935'
-         '31aeee433b137829719caf5daba9656c'
+         '2e2aab8a2efc2e3b0628dcc2235e0d9b'
          '70104cc22c2d8812ec340d60bb47a0db'
          '1ee31275830c77a024e27655d2fe8f69')
