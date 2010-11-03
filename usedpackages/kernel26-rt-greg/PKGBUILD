@@ -3,7 +3,7 @@ _basekernel=2.6.35.7
 _kernelname=${pkgname:8}
 _extradir=""
 _xenomaiver=2.5.5.2
-_adeosver=2.8-00
+_adeosver=2.7-04
 pkgver=${_basekernel}
 pkgrel=1
 pkgdesc="Lab Edition ofthe Linux Kernel and modules (ThinkPad R50e)"
@@ -21,7 +21,7 @@ source=(ftp://ftp.kernel.org/pub/linux/kernel/v2.6/${_extradir}linux-${_basekern
 	# xenomai
 	http://download.gna.org/xenomai/stable/xenomai-${_xenomaiver}.tar.bz2
 	# adeos i-pipe patch
-	http://download.gna.org/adeos/patches/v2.6/x86/adeos-ipipe-${_basekernel}-x86-${_adeosver}.patch
+#	http://download.gna.org/adeos/patches/v2.6/x86/adeos-ipipe-${_basekernel}-x86-${_adeosver}.patch
 )
 
 build() {
@@ -43,7 +43,7 @@ build() {
 
   cd xenomai-${_xenomaiver}
   scripts/prepare-kernel.sh --linux=../linux-${_basekernel} \
-    --adeos=../adeos-ipipe-${_basekernel}-${KARCH}-${_adeosver}.patch \
+    --adeos=ksrc/arch/${KARCH}/patches/adeos-ipipe-${_basekernel}-${KARCH}-${_adeosver}.patch \
     --arch=${KARCH} || return 1
 
 
@@ -79,9 +79,9 @@ build() {
   #msg "Stopping build"
   #return 1
   ####################
-  make LOCALVERSION=${_kernelver} [ARCH=${KARCH}] bzImage modules || return 1
+  make -j6 LOCALVERSION=${_kernelver} [ARCH=${KARCH}] bzImage modules || return 1
   mkdir -p ${pkgdir}/{lib/modules,boot}
-  make INSTALL_MOD_PATH=${pkgdir} modules_install || return 1
+  make -j6 INSTALL_MOD_PATH=${pkgdir} modules_install || return 1
 #  cp System.map ${pkgdir}/boot/System.map26
 #  cp arch/$KARCH/boot/bzImage ${pkgdir}/boot/vmlinuz26
   cp System.map ${pkgdir}/boot/System.map26${_kernelname}
@@ -194,12 +194,21 @@ build() {
   ./configure --prefix=/usr --includedir=/usr/include/xenomai --enable-x86-sep || return 1
   make || return 1
   make DESTDIR=${pkgdir} install || return 1
+  install -D -m644 ksrc/nucleus/udev/rtheap.rules ${pkgdir}/etc/udev/rules.d/rtheap.rules
+  install -D -m644 ksrc/nucleus/udev/rtpipe.rules ${pkgdir}/etc/udev/rules.d/rtpipe.rules
 
   # remove firmware, as separate package provides them.
   rm -fr ${pkgdir}/lib/firmware
 }
 md5sums=('f741879bcd3a5366a1bbe0ad5cdb7935'
-         'dd06cca34730f40f305f37bc9685b182'
-         '6531b5bcecf22fd81972415f9548ecbe'
-         '1ee31275830c77a024e27655d2fe8f69'
-         'efbf47306576529e43bfdff1e8e3f56a')
+         '352b73926b1c7174fa8a2370ae43633e'
+         '70104cc22c2d8812ec340d60bb47a0db'
+         '1ee31275830c77a024e27655d2fe8f69')
+md5sums=('f741879bcd3a5366a1bbe0ad5cdb7935'
+         'e1bc03ab712e55a5051159991b89cfdd'
+         '70104cc22c2d8812ec340d60bb47a0db'
+         '1ee31275830c77a024e27655d2fe8f69')
+md5sums=('f741879bcd3a5366a1bbe0ad5cdb7935'
+         '999bb700329293c112b5721eee64e60e'
+         '70104cc22c2d8812ec340d60bb47a0db'
+         '1ee31275830c77a024e27655d2fe8f69')
