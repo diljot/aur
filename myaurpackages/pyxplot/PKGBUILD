@@ -1,16 +1,18 @@
+
 # Maintainer: Gergely Imreh <imrehg(at)gmail(dot)com>
 pkgname=pyxplot
-pkgver=0.8.2
+pkgver=0.8.3
 pkgrel=1
-pkgdesc="PyXPlot is a command-line graphing package with a simple interface that produces publication-quality output."
+pkgdesc="Command-line graphing package with a simple interface that produces publication-quality output."
 arch=('i686' 'x86_64')
 license=('GPL2')
 url="http://www.pyxplot.org.uk/"
+changelog=${pkgname}.changelog
 provides=('pyxplot')
-depends=('texlive-core' 'imagemagick')
+depends=('texlive-core' 'imagemagick' 'fftw' 'gsl')
+makedepends=('python2' 'gcc' 'make')
 optdepends=('python-scipy: mathematical functions'
 	    'python-numpy: mathematical functions'
-            'fftw: fitting'
             'gsl: fitting'
             'gv:for the X11 terminal'
             'ggv: PostScript fileds'
@@ -25,10 +27,17 @@ build() {
   # - remove lkpathsea linkin (does not work in arch's version)
   patch -p0 < ../configure.patch
 
+
   ./configure --prefix=/usr
-  make || return 1
+  # LDFLAGS to remove harmful -Wl,--as-needed
+  # USRDIR because otherwise it seem to look for help file in wrong directory
+  export LDFLAGS="${LDFLAGS//-Wl,--as-needed}"
+  make USRDIR="/usr" || return 1
   mkdir ${pkgdir}/usr
   make USRDIR="${pkgdir}/usr" MANDIR="${pkgdir}/usr/share/man/man1" install || return 1
+
+  # Remove docs, they weigh too much
+  rm -rf ${pkgdir}/usr/share/doc
 }
-md5sums=('895e96d210db56e650ea4e586ad4a9ce'
-         'd2f0adc4347d660b99eb96f5ff4ec47d')
+md5sums=('4bc3f963b7cff28e60c1a3eaaf09c9d9'
+         '60dbae350fbfd30e9b20354fccc30f3f')
