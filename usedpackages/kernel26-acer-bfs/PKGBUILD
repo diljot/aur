@@ -1,8 +1,9 @@
 #Maintainer Gergely Imreh <imrehgATgmailDOTcom>
 pkgname=kernel26-acer-bfs
-_basekernel=2.6.34.1
-_ckver=318
+_basekernel=2.6.36
+_ckver=ck2
 _kernelname=${pkgname:8}
+_makeflag=-j2
 pkgver=${_basekernel}
 pkgrel=1
 pkgdesc="Greg's Acer Travelmate version of the Linux Kernel and modules, with BFS"
@@ -19,7 +20,7 @@ source=(ftp://ftp.kernel.org/pub/linux/kernel/v2.6/linux-${pkgver}.tar.bz2
         # standard config files for mkinitcpio ramdisk
         kernel26.preset
         # BFS patch
-        http://ck.kolivas.org/patches/bfs/2.6.34-sched-bfs-${_ckver}.patch
+        http://www.kernel.org/pub/linux/kernel/people/ck/patches/2.6/${_basekernel}/${_basekernel}-${_ckver}/patch-${_basekernel}-${_ckver}.bz2
         )
 build() {
   KARCH=x86
@@ -28,29 +29,31 @@ build() {
   cd ${srcdir}/linux-${pkgver}
 
   # Patch kernel, e.g. with BFS code
-  patch -p1 < ../2.6.*.patch
-
-  # Change kernel name in kernel26.preset and kernel26.install
-  sed \
-    -e  "s/ALL_kver='.*/ALL_kver='${_basekernel}${_kernelname}'/g" \
-  -i $startdir/kernel26.preset 
-  sed \
-    -e  "s/KERNEL_NAME=.*/KERNEL_NAME=${_kernelname}/g" \
-    -e  "s/KERNEL_VERSION=.*/KERNEL_VERSION=${_basekernel}${_kernelname}/g" \
-  -i $startdir/kernel26.install
+  patch -p1 < ../patch-${_basekernel}-${_ckver}
 
   cat ../config${_kernelname} >./.config
 
-  # Change kernel name in config file
-  if [ "${_kernelname}" != "" ]; then
-    sed -i "s|CONFIG_LOCALVERSION=.*|CONFIG_LOCALVERSION=\"${_kernelname}\"|g" ./.config
-  fi
+## No need to do this if we do make LOCALVERSION, otherwise
+## it might be appended to the nam twice
+#  # Change kernel name in config file
+#  if [ "${_kernelname}" != "" ]; then
+#    sed -i "s|CONFIG_LOCALVERSION=.*|CONFIG_LOCALVERSION=\"${_kernelname}\"|g" ./.config
+#  fi
 
-  # get kernel version  
-  make prepare
-  _kernver="$(make kernelrelease)"
+  # set then get kernel version
+  make LOCALVERSION=${_kernelname} prepare
+  _kernver="$(make LOCALVERSION=${_kernelname} kernelrelease)"
   # load configuration
 #  yes "" | make menuconfig
+
+  # Change kernel name in kernel26.preset and kernel26.install
+  sed \
+    -e  "s/ALL_kver='.*/ALL_kver='${_kernver}'/g" \
+  -i $startdir/kernel26.preset
+  sed \
+    -e  "s/KERNEL_NAME=.*/KERNEL_NAME=${_kernver#${_basekernel}}/g" \
+    -e  "s/KERNEL_VERSION=.*/KERNEL_VERSION=${_kernver}/g" \
+  -i $startdir/kernel26.install
 
 ### build!
   ####################
@@ -59,12 +62,16 @@ build() {
   #msg "Stopping build"
   #return 1
   ####################
-  make bzImage modules || return 1
+  make ${_makeflag} LOCALVERSION=${_kernelname} [ARCH=${KARCH}] bzImage modules || return 1
   mkdir -p ${pkgdir}/{lib/modules,boot}
-  make INSTALL_MOD_PATH=${pkgdir} modules_install || return 1
+  make ${_makeflag} LOCALVERSION=${_kernelname} INSTALL_MOD_PATH=${pkgdir} modules_install || return 1
+  msg "Build finished; additional configuration"
+#  cp System.map ${pkgdir}/boot/System.map26
+#  cp arch/$KARCH/boot/bzImage ${pkgdir}/boot/vmlinuz26
   cp System.map ${pkgdir}/boot/System.map26${_kernelname}
   cp arch/$KARCH/boot/bzImage ${pkgdir}/boot/vmlinuz26${_kernelname}
   cp .config ${pkgdir}/boot/config${_kernelname}
+
   install -D -m644 Makefile \
     ${pkgdir}/usr/src/linux-${_kernver}/Makefile
   install -D -m644 kernel/Makefile \
@@ -99,13 +106,10 @@ build() {
   # add headers for lirc package
   mkdir -p ${pkgdir}/usr/src/linux-${_kernver}/drivers/media/video
   cp drivers/media/video/*.h  ${pkgdir}/usr/src/linux-${_kernver}/drivers/media/video/
-  for i in bt8xx cpia2 cx25840 cx88 em28xx et61x251 pwc saa7134 sn9c102 usbvideo zc0301; do
+  for i in bt8xx cpia2 cx25840 cx88 em28xx et61x251 pwc saa7134 sn9c102 usbvideo; do
    mkdir -p ${pkgdir}/usr/src/linux-${_kernver}/drivers/media/video/$i
    cp -a drivers/media/video/$i/*.h ${pkgdir}/usr/src/linux-${_kernver}/drivers/media/video/$i
   done
-  # add docbook makefile
-  install -D -m644 Documentation/DocBook/Makefile \
-    ${pkgdir}/usr/src/linux-${_kernver}/Documentation/DocBook/Makefile
   # add dm headers
   mkdir -p ${pkgdir}/usr/src/linux-${_kernver}/drivers/md
   cp drivers/md/*.h  ${pkgdir}/usr/src/linux-${_kernver}/drivers/md
@@ -122,38 +126,32 @@ build() {
   # http://bugs.archlinux.org/task/9912
   mkdir -p ${pkgdir}/usr/src/linux-${_kernver}/drivers/media/dvb/dvb-core
   cp drivers/media/dvb/dvb-core/*.h ${pkgdir}/usr/src/linux-${_kernver}/drivers/media/dvb/dvb-core/
-  # add dvb headers for http://mcentral.de/hg/~mrec/em28xx-new
+  # add dvb headers for external modules
   # in reference to:
-  # http://bugs.archlinux.org/task/13146
-  mkdir -p ${pkgdir}/usr/src/linux-${_kernver}/drivers/media/dvb/frontends/
-  cp drivers/media/dvb/frontends/lgdt330x.h ${pkgdir}/usr/src/linux-${_kernver}/drivers/media/dvb/frontends/
-  cp drivers/media/video/msp3400-driver.h ${pkgdir}/usr/src/linux-${_kernver}/drivers/media/dvb/frontends/
+  # http://bugs.archlinux.org/task/11194
+  # mkdir -p ${pkgdir}/usr/src/linux-${_kernver}/include/config/dvb/
+  # cp include/config/dvb/*.h ${pkgdir}/usr/src/linux-${_kernver}/include/config/dvb/
   # add xfs and shmem for aufs building
   mkdir -p ${pkgdir}/usr/src/linux-${_kernver}/fs/xfs
   mkdir -p ${pkgdir}/usr/src/linux-${_kernver}/mm
   cp fs/xfs/xfs_sb.h ${pkgdir}/usr/src/linux-${_kernver}/fs/xfs/xfs_sb.h
-  # add headers vor virtualbox
-  # in reference to:
-  # http://bugs.archlinux.org/task/14568
-  cp -a include/drm $pkgdir/usr/src/linux-${_kernver}/include/
-  # add headers for broadcom wl
-  # in reference to:
-  # http://bugs.archlinux.org/task/14568
-  cp -a include/trace $pkgdir/usr/src/linux-${_kernver}/include/
   # add vmlinux
   cp vmlinux ${pkgdir}/usr/src/linux-${_kernver}
   # copy in Kconfig files
-  for i in `find . -name "Kconfig*"`; do 
+  for i in `find . -name "Kconfig*"`; do
     mkdir -p ${pkgdir}/usr/src/linux-${_kernver}/`echo $i | sed 's|/Kconfig.*||'`
     cp $i ${pkgdir}/usr/src/linux-${_kernver}/$i
   done
 
-  cd ${pkgdir}/usr/src/linux-${_kernver}/include && ln -s asm-$KARCH asm
+  # cd ${pkgdir}/usr/src/linux-${_kernver}/include && ln -s asm-$KARCH asm
+  # add header for aufs2-util
+  # cp -a ${srcdir}/linux-$_basekernel/include/asm-generic/bitsperlong.h ${pkgdir}/usr/src/linux-${_kernver}/include/asm/
 
   chown -R root.root ${pkgdir}/usr/src/linux-${_kernver}
   find ${pkgdir}/usr/src/linux-${_kernver} -type d -exec chmod 755 {} \;
-  cd ${pkgdir}/lib/modules/${_kernver} && \
-    (rm -f source build; ln -sf ../../../usr/src/linux-${_kernver} build)
+#### FIX
+  # cd ${pkgdir}/lib/modules/${_kernver} && \
+  #   (rm -f source build; ln -sf ../../../usr/src/linux-${_kernver} build)
 
 ### Main kernel version
 #  # install fallback mkinitcpio.conf file and preset file for kernel
@@ -178,7 +176,7 @@ build() {
   # remove firmware, as separate package provides them.
   rm -fr ${pkgdir}/lib/firmware
 }
-md5sums=('d31d241dc2058698a45fe41359cafb45'
-         'c6b556febac6c9b19476d1d71dc5a26d'
-         '5270c29bfdc2bcfa1a1b48e3bdcd7ee7'
-         'e47d527b10d799281211e6ac677edf3c')
+md5sums=('61f3739a73afb6914cb007f37fb09b62'
+         'eb7b5a98498c80829c18f522cf6c542e'
+         'e116bcb9a0b1d60ef34ef57c80e0333d'
+         '055c90cf7a835efe7dfd216df3e92828')
