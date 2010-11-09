@@ -51,7 +51,7 @@ build() {
     -e  "s/ALL_kver='.*/ALL_kver='${_kernver}'/g" \
   -i $startdir/kernel26.preset
   sed \
-    -e  "s/KERNEL_NAME=.*/KERNEL_NAME=${_kernver#${_basekernel}}/g" \
+    -e  "s/KERNEL_NAME=.*/KERNEL_NAME=${_kernelname}/g" \
     -e  "s/KERNEL_VERSION=.*/KERNEL_VERSION=${_kernver}/g" \
   -i $startdir/kernel26.install
 
@@ -163,8 +163,8 @@ build() {
   # install fallback mkinitcpio.conf file and preset file for kernel
   install -m644 -D ${srcdir}/kernel26.preset ${pkgdir}/etc/mkinitcpio.d/${pkgname}.preset || return 1
   sed \
-    -e "s|source .*|source /etc/mkinitcpio.d/kernel26${_kernelname}.kver|g" \
-    -e "s|ALL_kver=.*|ALL_kver='${_basekernel}${_kernelname}'|g" \
+    -e "s|source .*|source /etc/mkinitcpio.d/${pkgname}.kver|g" \
+    -e "s|ALL_kver=.*|ALL_kver='${_kernver}'|g" \
     -e "s|default_image=.*|default_image=\"/boot/${pkgname}.img\"|g" \
     -e "s|fallback_image=.*|fallback_image=\"/boot/${pkgname}-fallback.img\"|g" \
     -i ${pkgdir}/etc/mkinitcpio.d/${pkgname}.preset
