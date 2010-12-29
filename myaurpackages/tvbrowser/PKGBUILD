@@ -1,13 +1,14 @@
 # Contributor: Sebastian Sareyko <public@nooms.de>
 # Maintainer: Gergely Imreh <imrehgATgmailDOTcom>
 pkgname=tvbrowser
-pkgver=2.7.5
+pkgver=2.7.6
 pkgrel=1
 pkgdesc="A java-based TV guide which is easily extensible using plugins"
-arch=('i686' 'x86_64')
+arch=('any')
 url="http://www.tvbrowser.org"
 license=('GPL' 'LGPL' 'BSD' 'CCPL:by-sa' 'APACHE')
-depends=('java-runtime' 'x-server')
+install="${pkgname}.install"
+depends=('java-runtime' 'x-server' 'xdg-utils')
 source=(http://downloads.sourceforge.net/$pkgname/$pkgname-$pkgver.tar.gz
         http://www.tvbrowser.org/images/$pkgname/${pkgname}_logo.svg
         $pkgname.sh
@@ -33,7 +34,7 @@ build() {
     install -D -m644 $srcdir/$pkgname-$pkgver/imgs/${pkgname}${_i}.png $pkgdir/usr/share/icons/hicolor/${_i}x${_i}/apps/$pkgname.png
   done
 }
-md5sums=('3b7ad683e2ff7d967b85713a917439b6'
+md5sums=('eaf1d0b28f85cdbd2e10ec4a52a4e47f'
          'ac75767a87d94e51afe0897f1614d256'
          '96ae258b2917c54b167102f6bbdc58b4'
          '622e89ee1e3915e42dfa913ea7d98e20')
