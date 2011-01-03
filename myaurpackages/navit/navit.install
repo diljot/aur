@@ -12,6 +12,9 @@ See http://wiki.navit-project.org/index.php/OpenStreetMaps or
 http://wiki.navit-project.org/index.php/Configuring_Navit 
 
 END_OF_MESSAGE
+
+  xdg-icon-resource forceupdate --theme hicolor
+
 }
 
 post_upgrade() {
@@ -28,5 +31,7 @@ or any maps you have installed. You have to do that
 manually.
 
 END_OF_MESSAGE
+
+  xdg-icon-resource forceupdate --theme hicolor
 }
 
