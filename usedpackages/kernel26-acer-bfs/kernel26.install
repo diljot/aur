@@ -2,7 +2,7 @@
 # arg 2:  the old package version
 
 KERNEL_NAME=-acer-bfs
-KERNEL_VERSION=2.6.36-ck2-acer-bfs
+KERNEL_VERSION=2.6.37-ck1-acer-bfs
 
 post_install () {
   # updating module dependencies
