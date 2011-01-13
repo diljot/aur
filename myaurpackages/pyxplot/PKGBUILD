@@ -1,7 +1,7 @@
 
 # Maintainer: Gergely Imreh <imrehg(at)gmail(dot)com>
 pkgname=pyxplot
-pkgver=0.8.3
+pkgver=0.8.4
 pkgrel=1
 pkgdesc="Command-line graphing package with a simple interface that produces publication-quality output."
 arch=('i686' 'x86_64')
@@ -39,5 +39,5 @@ build() {
   # Remove docs, they weigh too much
   rm -rf ${pkgdir}/usr/share/doc
 }
-md5sums=('4bc3f963b7cff28e60c1a3eaaf09c9d9'
+md5sums=('1546b2773d1a2d87931c597f437da3fd'
          '60dbae350fbfd30e9b20354fccc30f3f')
