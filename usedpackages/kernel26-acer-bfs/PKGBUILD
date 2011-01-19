@@ -20,7 +20,7 @@ source=(ftp://ftp.kernel.org/pub/linux/kernel/v2.6/linux-${pkgver}.tar.bz2
         # standard config files for mkinitcpio ramdisk
         kernel26.preset
         # BFS patch
-        http://www.kernel.org/pub/linux/kernel/people/ck/patches/2.6/${_basekernel}/patch-${_basekernel}-${_ckver}.bz2
+        http://www.kernel.org/pub/linux/kernel/people/ck/patches/2.6/${_basekernel}/${_basekernel}-${_ckver}/patch-${_basekernel}-${_ckver}.bz2
         )
 build() {
   KARCH=x86
@@ -178,5 +178,5 @@ build() {
 }
 md5sums=('c8ee37b4fdccdb651e0603d35350b434'
          'a6148dc666c613a967f47636eee96c9c'
-         'e116bcb9a0b1d60ef34ef57c80e0333d'
+         '2d962ffb07ee1bf955be5e27aeeed437'
          'd5c93c7df1692d364c15d8eea0b384c9')
