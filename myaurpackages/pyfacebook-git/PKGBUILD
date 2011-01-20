@@ -1,17 +1,15 @@
 # Maintainer: Gergely Imreh <imrehgATgmailDOTcom>
-# Contributor: Gergely Imreh <imrehgATgmailDOTcom>
-
 pkgname=pyfacebook-git
-pkgver=20101027
+pkgver=20110120
 pkgrel=1
 pkgdesc="A thin wrapper for accessing Facebook's RESTful API through Python."
-arch=('i686' 'x86_64')
+arch=('any')
 url="http://github.com/sciyoshi/pyfacebook/"
 license=('GPL')
-depends=('python2')
-makedepends=('git')
-provides=('pyfacebook')
-conflicts=('pyfacebook')
+depends=('python2' 'django')
+makedepends=('git' 'python2-distribute')
+provides=('python2-facebook')
+conflicts=('python2-facebook')
 source=()
 md5sums=()
 
@@ -19,6 +17,7 @@ _gitroot="git://github.com/sciyoshi/pyfacebook.git"
 _gitname="pyfacebook"
 
 build() {
+  PYTHON=python2
   cd "${srcdir}"
   msg "Connecting to GIT server...."
 
@@ -38,11 +37,8 @@ build() {
   git clone "${srcdir}/${_gitname}" "${srcdir}/${_gitname}-build"
   cd "${srcdir}/${_gitname}-build"
 
-  #
   # BUILD HERE
-  #
-
-  python2 setup.py build || return 1
-  python2 setup.py install --root=${pkgdir} || return 1
+  $PYTHON setup.py build || return 1
+  $PYTHON setup.py install --root=${pkgdir} || return 1
 } 
 
