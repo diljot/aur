@@ -1,5 +1,5 @@
 # Maintainer: Gergely Imreh <imrehg AT gmail DOT com>
-pkgname=python3-pyke
+pkgname=python-pyke
 pkgver=1.1.1
 pkgrel=1
 pkgdesc="A knowledge-based inference engine written in 100% Python"
