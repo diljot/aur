@@ -4,7 +4,7 @@
 # Maintainer: Daniel J Griffiths <ghost1227@archlinux.us>
 
 pkgname=chromium
-pkgver=10.0.640.0
+pkgver=10.0.649.0
 pkgrel=1
 pkgdesc='The open-source project behind Google Chrome, an attempt at creating a safer, faster, and more stable browser.'
 arch=('i686' 'x86_64')
@@ -17,7 +17,7 @@ conflicts=('chromium-browser')
 install=chromium.install
 source=("http://build.chromium.org/buildbot/official/chromium-${pkgver}.tar.bz2"
         'chromium.desktop' 'chromium.sh')
-md5sums=('057ceaa80e31a9dc38d3cd8281b3f265'
+md5sums=('1eb710ddf19ed8158a340a8665976be2'
          'c5e849fcb1101149977355c99d8ff78f'
          '096a46ef386817988250d2d7bddd1b34')
 
@@ -35,8 +35,12 @@ build() {
   find . -type f -exec \
 	sed -E 's#(/usr/bin/python)$#\12#g;s#(/usr/bin/python2)\.4$#\1#g' -i {} \;
   # There are still a lot of relative calls which need a workaround
-  mkdir ${srcdir}/python2-path
-  ln -s /usr/bin/python2 ${srcdir}/python2-path/python
+  if [ ! -d "${srcdir}/python2-path" ]; then
+    mkdir "${srcdir}/python2-path"
+  fi
+  if [ ! -f "${srcdir}/python2-path/python" ]; then
+    ln -s /usr/bin/python2 "${srcdir}/python2-path/python"
+  fi
   export PATH="${srcdir}/python2-path/:${PATH}"
 
   # we need to disable system_ssl until "next protocol negotiation" support
