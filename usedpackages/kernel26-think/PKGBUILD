@@ -5,7 +5,7 @@ _ckver=ck1
 _kernelname=${pkgname:8}
 _makeflag=-j8
 pkgver=${_basekernel}
-pkgrel=1
+pkgrel=2
 pkgdesc="Greg's Lenovo X201i version of the Linux Kernel and modules, with BFS"
 arch=(x86_64)
 license=('GPL2')
@@ -177,6 +177,6 @@ build() {
   rm -fr ${pkgdir}/lib/firmware
 }
 md5sums=('c8ee37b4fdccdb651e0603d35350b434'
-         'f417d06601cd284ab45340a4104f15cf'
+         '8187ba73e1d507e9c99d35b448461269'
          '5b541172ad3d0d19212c68cf6cf2bf63'
          'd5c93c7df1692d364c15d8eea0b384c9')
