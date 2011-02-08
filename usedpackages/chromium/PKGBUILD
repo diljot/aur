@@ -4,7 +4,7 @@
 # Maintainer: Daniel J Griffiths <ghost1227@archlinux.us>
 
 pkgname=chromium
-pkgver=11.0.661.0
+pkgver=11.0.662.0
 pkgrel=1
 pkgdesc='The open-source project behind Google Chrome, an attempt at creating a safer, faster, and more stable browser.'
 arch=('i686' 'x86_64')
@@ -17,7 +17,7 @@ conflicts=('chromium-browser')
 install=chromium.install
 source=("http://build.chromium.org/buildbot/official/chromium-${pkgver}.tar.bz2"
         'chromium.desktop' 'chromium.sh')
-md5sums=('d418e75e5fd8c2b8ae04c76f6bebb124'
+md5sums=('9eb8e285d47513df18a6e9daac77f232'
          'c5e849fcb1101149977355c99d8ff78f'
          '096a46ef386817988250d2d7bddd1b34')
 
