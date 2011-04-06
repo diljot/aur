@@ -1,0 +1,42 @@
+# Contributor: Felipe Morales <hel.sheep@gmail.com>
+# Based on the packaging of Frank Smit <frank@61924.nl> (redis-py-git on AUR)
+pkgname=python-redis-git
+pkgver=20110406
+pkgrel=1
+pkgdesc='Redis Python Client'
+arch=(any)
+url='https://github.com/andymccurdy/redis-py'
+license=('MIT')
+depends=('python2' 'redis')
+makedepends=('git' 'python2-distribute')
+source=()
+md5sums=()
+
+_gitroot='git://github.com/andymccurdy/redis-py.git'
+_gitname='redis-py'
+
+build() {
+    PYTHON=python2
+
+    cd "$srcdir"
+    msg "Connecting to GIT server...."
+
+    if [ -d $_gitname ] ; then
+        cd $_gitname && git pull origin
+        msg "The local files are updated."
+    else
+		# if we don't clone into python-redis instead of redis-py (as in redis-py-git), 
+		# files in the python2 version and the python3 version might mix, I think
+        git clone $_gitroot $_gitname
+    fi
+
+    msg "GIT checkout done or server timeout"
+    msg "Starting make..."
+
+    rm -rf "${srcdir}/${_gitname}-build"
+    git clone "${srcdir}/${_gitname}" "${srcdir}/${_gitname}-build"
+    cd "${srcdir}/${_gitname}-build"
+
+    $PYTHON setup.py install --root="${pkgdir}" --prefix=/usr
+    install -D -m644 "${srcdir}/${_gitname}-build/LICENSE" "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+}
