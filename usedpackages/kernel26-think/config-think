@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
-# Linux/x86_64 2.6.38-ck1 Kernel Configuration
-# Mon Mar 28 14:07:20 2011
+# Linux/x86_64 2.6.38.2-ck3 Kernel Configuration
+# Wed Apr 13 13:46:29 2011
 #
 CONFIG_64BIT=y
 # CONFIG_X86_32 is not set
@@ -2772,7 +2772,7 @@ CONFIG_VIDEO_CX2341X=m
 #
 CONFIG_VIDEO_VIVI=m
 # CONFIG_VIDEO_BT848 is not set
-# CONFIG_VIDEO_CPIA2 is not set
+CONFIG_VIDEO_CPIA2=m
 # CONFIG_VIDEO_ZORAN is not set
 # CONFIG_VIDEO_SAA7134 is not set
 # CONFIG_VIDEO_MXB is not set
@@ -2786,7 +2786,7 @@ CONFIG_VIDEO_VIVI=m
 # CONFIG_VIDEO_CX18 is not set
 # CONFIG_VIDEO_SAA7164 is not set
 # CONFIG_VIDEO_CAFE_CCIC is not set
-# CONFIG_VIDEO_SR030PC30 is not set
+CONFIG_VIDEO_SR030PC30=m
 CONFIG_SOC_CAMERA=m
 CONFIG_SOC_CAMERA_IMX074=m
 CONFIG_SOC_CAMERA_MT9M001=m
@@ -3281,7 +3281,7 @@ CONFIG_USB_HIDDEV=y
 #
 # CONFIG_HID_3M_PCT is not set
 CONFIG_HID_A4TECH=m
-# CONFIG_HID_ACRUX_FF is not set
+# CONFIG_HID_ACRUX is not set
 CONFIG_HID_APPLE=m
 CONFIG_HID_BELKIN=m
 # CONFIG_HID_CANDO is not set

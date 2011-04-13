@@ -4,7 +4,7 @@
 # DO NOT EDIT THIS LINE:
 source /etc/mkinitcpio.d/kernel26.kver
 ########################################
-ALL_kver='2.6.38-ck1-think'
+ALL_kver='2.6.38.2-ck3-think'
 ALL_config="/etc/mkinitcpio.conf"
 
 PRESETS=('default' 'fallback')
