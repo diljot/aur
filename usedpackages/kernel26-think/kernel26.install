@@ -2,7 +2,7 @@
 # arg 2:  the old package version
 
 KERNEL_NAME=-think
-KERNEL_VERSION=2.6.38.3-ck3-think
+KERNEL_VERSION=2.6.38.4-ck3-think
 
 post_install () {
   # updating module dependencies
