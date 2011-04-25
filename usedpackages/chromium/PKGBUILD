@@ -1,33 +1,31 @@
-# $Id: PKGBUILD 98244 2010-11-05 10:57:27Z pierre $
 # Contributor: Pierre Schmitz <pierre@archlinux.de>
 # Contributor: Jan "heftig" Steffens <jan.steffens@gmail.com>
 # Maintainer: Daniel J Griffiths <ghost1227@archlinux.us>
 
 pkgname=chromium
-pkgver=12.0.737.0
+pkgver=12.0.746.0
 pkgrel=1
 pkgdesc='The open-source project behind Google Chrome, an attempt at creating a safer, faster, and more stable browser.'
 arch=('i686' 'x86_64')
 url='http://www.chromium.org/'
 license=('BSD')
-depends=('nss' 'gconf' 'alsa-lib' 'xdg-utils' 'hicolor-icon-theme' 'bzip2' 'libevent' 'libxss')
+depends=('gtk2' 'dbus-glib' 'nss' 'alsa-lib' 'xdg-utils' 'hicolor-icon-theme' 'bzip2' 'libevent' 'libxss' 'libxtst' 'ttf-dejavu' 'desktop-file-utils')
 makedepends=('python2' 'perl' 'gperf' 'yasm' 'mesa' 'libgnome-keyring')
 provides=('chromium-browser')
 conflicts=('chromium-browser')
 install=chromium.install
 source=("http://build.chromium.org/buildbot/official/chromium-${pkgver}.tar.bz2"
-        'chromium.desktop' 'chromium.sh')
-md5sums=('a68356c8cefbaf8b27d2734235596a48'
-         'c5e849fcb1101149977355c99d8ff78f'
-         '096a46ef386817988250d2d7bddd1b34')
+        'chromium.desktop' 'chromium.sh' chromium-webkit-version.patch)
+md5sums=('b99e1c89299903dbd0c3a1d456e3261f'
+         '075c3c2fa5902e16b8547dd31d437191'
+         '096a46ef386817988250d2d7bddd1b34'
+         'dee3e8798f8916d23fce203478094822')
 
 build() {
   cd ${srcdir}/chromium-${pkgver}
 
-### Patch
-  # workaround for gcc 4.5
-  # see http://code.google.com/p/chromium/issues/detail?id=41887
-  export CFLAGS="${CFLAGS} -fno-ipa-cp"
+  #http://code.google.com/p/chromium/issues/detail?id=70537
+  patch -Np1 -i ${srcdir}/chromium-webkit-version.patch
 
 ### Configure
 
@@ -35,12 +33,8 @@ build() {
   find . -type f -exec \
 	sed -E 's#(/usr/bin/python)$#\12#g;s#(/usr/bin/python2)\.4$#\1#g' -i {} \;
   # There are still a lot of relative calls which need a workaround
-  if [ ! -d "${srcdir}/python2-path" ]; then
-    mkdir "${srcdir}/python2-path"
-  fi
-  if [ ! -f "${srcdir}/python2-path/python" ]; then
-    ln -s /usr/bin/python2 "${srcdir}/python2-path/python"
-  fi
+  mkdir ${srcdir}/python2-path
+  ln -s /usr/bin/python2 ${srcdir}/python2-path/python
   export PATH="${srcdir}/python2-path/:${PATH}"
 
   # we need to disable system_ssl until "next protocol negotiation" support
@@ -48,7 +42,7 @@ build() {
   # see https://bugzilla.mozilla.org/show_bug.cgi?id=547312
 
   build/gyp_chromium -f make build/all.gyp --depth=. \
-    -Dgcc_version=44 \
+    -Dgcc_version=45 \
     -Dno_strict_aliasing=1 \
     -Dwerror= \
     -Dlinux_sandbox_path=/usr/lib/chromium/chromium-sandbox \
@@ -66,6 +60,7 @@ build() {
     -Duse_system_yasm=1 \
     -Duse_system_libevent=1 \
     -Duse_system_ssl=0 \
+    -Duse_gconf=0 \
     $([ "${CARCH}" == 'i686' ] && echo '-Ddisable_sse2=1')
 
 ### Build
