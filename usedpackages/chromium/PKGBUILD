@@ -1,114 +1,158 @@
-# Contributor: Pierre Schmitz <pierre@archlinux.de>
-# Contributor: Jan "heftig" Steffens <jan.steffens@gmail.com>
-# Maintainer: Daniel J Griffiths <ghost1227@archlinux.us>
-
+# Based on chromium-dev
+# Maintainer: Mikhail Vorozhtsov <mikhail.vorozhtsov@gmail.com>
 pkgname=chromium
-pkgver=12.0.746.0
+pkgver=12.0.747.0
 pkgrel=1
-pkgdesc='The open-source project behind Google Chrome, an attempt at creating a safer, faster, and more stable browser.'
+_buildtype=Release
+test "x${DEBUG}" = "xyes" && _buildtype=Debug
+pkgdesc='The open-source project behind Google Chrome, the latest'
 arch=('i686' 'x86_64')
 url='http://www.chromium.org/'
 license=('BSD')
-depends=('gtk2' 'dbus-glib' 'nss' 'alsa-lib' 'xdg-utils' 'hicolor-icon-theme' 'bzip2' 'libevent' 'libxss' 'libxtst' 'ttf-dejavu' 'desktop-file-utils')
-makedepends=('python2' 'perl' 'gperf' 'yasm' 'mesa' 'libgnome-keyring')
-provides=('chromium-browser')
-conflicts=('chromium-browser')
-install=chromium.install
-source=("http://build.chromium.org/buildbot/official/chromium-${pkgver}.tar.bz2"
-        'chromium.desktop' 'chromium.sh' chromium-webkit-version.patch)
-md5sums=('b99e1c89299903dbd0c3a1d456e3261f'
-         '075c3c2fa5902e16b8547dd31d437191'
+depends=('alsa-lib' 'xdg-utils' 'hicolor-icon-theme' 'bzip2'
+         'libevent' 'libxss' 'libpng' 'libjpeg' 'cairo' 'dbus-glib'
+         'glib2' 'gtk2' 'nss' 'nspr' 'ffmpeg' 'libvpx' 'libxml2' 'libxslt'
+         'libxtst' 'icu')
+_use_gconf=0
+if test -x /usr/bin/gconftool-2; then
+  _use_gconf=1
+  depends[${#depends[@]}]=gconf
+fi
+makedepends=('git' 'python2' 'gperf' 'yasm' 'mesa' 'gcc>=4.5.0-6'
+             'libgnome-keyring')
+optdepends=('libgnome-keyring')
+options=()
+test ${_buildtype} = Debug && options[${#options[@]}]=!strip
+install="${pkgname}.install"
+source=(http://build.chromium.org/buildbot/official/chromium-${pkgver}.tar.bz2
+        "${pkgname}.desktop" "${pkgname}.sh"
+        ffmpeg-gyp-vpx.patch
+        webkit-debug-build.patch
+        gcc46.patch)
+md5sums=('89063d4a4dc41c9cba253f732047a616'
+         '49c01565dc62ef040d5166c4535d118c'
          '096a46ef386817988250d2d7bddd1b34'
-         'dee3e8798f8916d23fce203478094822')
+         '13f1d9302560a04268427bf0c2db021f'
+         '5c752fbc3d084c99f8c30de9a661a41e'
+         '68f7696e2450b92950863278469f4592')
 
 build() {
-  cd ${srcdir}/chromium-${pkgver}
+  cd "${srcdir}/chromium-${pkgver}"
 
-  #http://code.google.com/p/chromium/issues/detail?id=70537
-  patch -Np1 -i ${srcdir}/chromium-webkit-version.patch
+  _gcc_ver=`gcc --version | head -1 |
+              sed -e 's/^[^0-9]*//' -e 's/\.//' | cut -c-2`
 
-### Configure
+  msg2 "Patching sources..."
+  # see http://code.google.com/p/chromium/issues/detail?id=41887
+  sed \
+    -e 's/url->insert(start/url->replace(start, 0/' \
+    -e 's/url\.insert(i->index/url.replace(i->index, 0/' \
+    -i chrome/browser/search_engines/template_url.cc
+  # save configuration in ~/.config/${pkgname}
+  sed \
+    -e "s/'filename': 'chromium-browser'/'filename': '${pkgname}'/" \
+    -e "s/'confdir': 'chromium'/'confdir': '${pkgname}'/" \
+    -i chrome/chrome_exe.gypi
+  sed \
+    -e "s/config_dir\.Append(\"chromium\")/config_dir.Append(\"${pkgname}\")/" \
+    -e "s/config_dir\.Append(\"chrome-frame\")/config_dir.Append(\"chrome-frame-${pkgname#chromium-}\")/" \
+    -i chrome/common/chrome_paths_linux.cc
+  # see http://code.google.com/p/chromium/issues/detail?id=26496
+  patch -p1 -i "${srcdir}/webkit-debug-build.patch"
+  # see http://code.google.com/p/chromium/issues/detail?id=61759
+  patch -p1 -i "${srcdir}/ffmpeg-gyp-vpx.patch"
+  # see http://code.google.com/p/chromium/issues/detail?id=70746
+  if test $_gcc_ver = 46; then
+    patch -p0 -i "${srcdir}/gcc46.patch"
+  fi
+  # force usage of python2
+  find -type f -a -name '*.py' -exec sed -i \
+    -e 's|#![ ]*/usr/bin/python$|#!/usr/bin/python2|' \
+    -e 's|#![ ]*/usr/bin/env python$|#!/usr/bin/env python2|' {} \;
+  find -type f -a -name '*.gyp*' -exec sed -i \
+    -e 's|<!(python |<!(python2 |g' \
+    -e "s|'python'|'python2'|g" {} \;
 
-  echo 'Use python2 instead of python...'
-  find . -type f -exec \
-	sed -E 's#(/usr/bin/python)$#\12#g;s#(/usr/bin/python2)\.4$#\1#g' -i {} \;
-  # There are still a lot of relative calls which need a workaround
-  mkdir ${srcdir}/python2-path
-  ln -s /usr/bin/python2 ${srcdir}/python2-path/python
-  export PATH="${srcdir}/python2-path/:${PATH}"
-
-  # we need to disable system_ssl until "next protocol negotiation" support
-  # is available in our nss package
-  # see https://bugzilla.mozilla.org/show_bug.cgi?id=547312
-
-  build/gyp_chromium -f make build/all.gyp --depth=. \
-    -Dgcc_version=45 \
-    -Dno_strict_aliasing=1 \
-    -Dwerror= \
-    -Dlinux_sandbox_path=/usr/lib/chromium/chromium-sandbox \
-    -Dlinux_strip_binary=1 \
-    -Drelease_extra_cflags="${CFLAGS}" \
-    -Dffmpeg_branding=Chrome \
-    -Dproprietary_codecs=1 \
-    -Duse_system_libjpeg=1 \
-    -Duse_system_libxslt=0 \
-    -Duse_system_libxml=0 \
-    -Duse_system_bzip2=1 \
-    -Duse_system_zlib=1 \
-    -Duse_system_libpng=1 \
-    -Duse_system_ffmpeg=0 \
-    -Duse_system_yasm=1 \
-    -Duse_system_libevent=1 \
-    -Duse_system_ssl=0 \
-    -Duse_gconf=0 \
-    $([ "${CARCH}" == 'i686' ] && echo '-Ddisable_sse2=1')
-
-### Build
-  make ${MAKEFLAGS} chrome chrome_sandbox BUILDTYPE=Release
+  msg2 "Building Chromium..."
+  chromium_arch=ia32
+  test ${CARCH} = x86_64 && chromium_arch=x64
+  GYP_DEFINES="\
+    gcc_version=${_gcc_ver} \
+    werror= \
+    no_strict_aliasing=1 \
+    linux_sandbox_path=/usr/lib/${pkgname}/chromium-sandbox \
+    linux_sandbox_chrome_path=/usr/lib/${pkgname}/chromium \
+    release_extra_cflags='${CFLAGS}' \
+    use_system_ffmpeg=1 \
+    use_system_vpx=1 \
+    proprietary_codecs=1 \
+    use_system_libjpeg=1 \
+    use_system_libxslt=1 \
+    use_system_libxml=1 \
+    use_system_bzip2=1 \
+    use_system_zlib=1 \
+    use_system_libpng=1 \
+    use_system_yasm=1 \
+    use_system_libevent=1 \
+    use_system_icu=1 \
+    use_system_ssl=0 \
+    use_gconf=${_use_gconf} \
+    target_arch=${chromium_arch}"
+  test $CARCH = i686 \
+    && GYP_DEFINES="${GYP_DEFINES} \
+                    disable_sse2=1"
+  test ${_buildtype} = Release \
+    && GYP_DEFINES="${GYP_DEFINES} \
+                    linux_strip_binary=1 \
+                    remove_webcore_debug_symbols=1"
+  export GYP_DEFINES
+  echo "${pkgver} ${GYP_DEFINES}" > current.config
+  if test -f "last.config"; then
+    if cmp last.config current.config; then
+      msg2 "Configuration has not changed, reusing output files..."
+    else
+      msg2 "Configuration has changed, removing output files..."
+      rm -rf out
+    fi
+  fi
+  mv current.config last.config
+  python2 build/gyp_chromium -f make --depth=. build/all.gyp
+  make ${MAKEFLAGS} BUILDTYPE=${_buildtype} chrome chrome_sandbox
 }
 
 package() {
-  cd ${srcdir}/chromium-${pkgver}
+  cd "${srcdir}/chromium-${pkgver}"
 
-  install -m 0755 -D out/Release/chrome ${pkgdir}/usr/lib/chromium/chromium
-
-  install -m 4555 -o root -g root -D out/Release/chrome_sandbox \
-    ${pkgdir}/usr/lib/chromium/chromium-sandbox
-
-  install -m 0644 -D out/Release/chrome.pak \
-    ${pkgdir}/usr/lib/chromium/chrome.pak
-
-  install -m 0644 -D out/Release/resources.pak \
-    ${pkgdir}/usr/lib/chromium/resources.pak
-
-  install -m 0755 -D out/Release/libffmpegsumo.so \
-    ${pkgdir}/usr/lib/chromium/libffmpegsumo.so
-
-# these links are only needed when building with system ffmpeg
-#  ln -s /usr/lib/libavcodec.so.52 ${pkgdir}/usr/lib/chromium/
-#  ln -s /usr/lib/libavformat.so.52 ${pkgdir}/usr/lib/chromium/
-#  ln -s /usr/lib/libavutil.so.50 ${pkgdir}/usr/lib/chromium/
-
-  cp -a out/Release/locales out/Release/resources \
-    ${pkgdir}/usr/lib/chromium/
-
-  find ${pkgdir}/usr/lib/chromium/ -name '*.d' -type f -delete
-
-  install -m 0644 -D out/Release/chrome.1 \
-    ${pkgdir}/usr/share/man/man1/chromium.1
-
-  install -m 0644 -D ${srcdir}/chromium.desktop \
-    ${pkgdir}/usr/share/applications/chromium.desktop
-
-  for size in 16 22 24 32 48 64 128 256; do
-    install -m 0644 -D \
-      chrome/app/theme/chromium/product_logo_${size}.png \
-      ${pkgdir}/usr/share/icons/hicolor/${size}x${size}/apps/chromium.png
+  chromium_home="${pkgdir}/usr/lib/${pkgname}"
+  install -Dm755 -D out/${_buildtype}/chrome "${chromium_home}/chromium"
+  install -Dm4555 -o root -g root -D out/${_buildtype}/chrome_sandbox \
+    "${chromium_home}/chromium-sandbox"
+  install -Dm644 out/${_buildtype}/chrome.pak "${chromium_home}/chrome.pak"
+  install -Dm644 out/${_buildtype}/resources.pak \
+    "${chromium_home}/resources.pak"
+  for n in avcodec avdevice avfilter avformat avutil postproc swscale; do
+    if test -e /usr/lib/lib${n}.so.[0-9]; then
+      f=`echo /usr/lib/lib${n}.so.[0-9]`
+    else
+      f=`echo /usr/lib/lib${n}.so.[0-9][0-9]`
+    fi
+    f=`basename "$f"`
+    ln -s ../$f "${chromium_home}/${f}"
   done
+  cp -a out/${_buildtype}/locales out/${_buildtype}/resources \
+    "${chromium_home}/"
+  find "${chromium_home}" -type f -name '*.d' -delete
+  install -Dm644 out/${_buildtype}/chrome.1 \
+    "${pkgdir}/usr/share/man/man1/${pkgname}.1"
 
-  install -m 0755 -D ${srcdir}/chromium.sh ${pkgdir}/usr/bin/chromium
+  install -Dm644 "${srcdir}/${pkgname}.desktop" \
+    "${pkgdir}/usr/share/applications/${pkgname}.desktop"
+  for size in 16 22 24 32 48 64 128 256; do
+    install -Dm644 \
+      chrome/app/theme/chromium/product_logo_${size}.png \
+      "${pkgdir}/usr/share/icons/hicolor/${size}x${size}/apps/${pkgname}.png"
+  done
+  install -Dm755 ${srcdir}/${pkgname}.sh "${pkgdir}/usr/bin/${pkgname}"
 
-  install -m 0644 -D LICENSE ${pkgdir}/usr/share/licenses/chromium/LICENSE
+  install -Dm644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 }
-
-# vim:set sw=2 sts=2 et:
