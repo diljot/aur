@@ -1,7 +1,7 @@
 # Based on chromium-dev
 # Maintainer: Mikhail Vorozhtsov <mikhail.vorozhtsov@gmail.com>
 pkgname=chromium
-pkgver=13.0.752.0
+pkgver=13.0.753.0
 pkgrel=1
 _buildtype=Release
 test "x${DEBUG}" = "xyes" && _buildtype=Debug
@@ -29,7 +29,7 @@ source=(http://build.chromium.org/buildbot/official/chromium-${pkgver}.tar.bz2
         ffmpeg-gyp-vpx.patch
         webkit-debug-build.patch
         gcc46.patch)
-md5sums=('7bd1503291434ab2b5661a117184de52'
+md5sums=('43e6ecbee0b6fdf08558145abd6749ae'
          '49c01565dc62ef040d5166c4535d118c'
          '096a46ef386817988250d2d7bddd1b34'
          '13f1d9302560a04268427bf0c2db021f'
