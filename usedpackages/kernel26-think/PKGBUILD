@@ -1,8 +1,8 @@
 #Maintainer Gergely Imreh <imrehgATgmailDOTcom>
 pkgname=kernel26-think
-_basekernel=2.6.38.6
-_ckkernel=2.6.38
-_ckver=ck3
+_basekernel=2.6.39
+_ckkernel=2.6.39
+_ckver=ck1
 _kernelname=${pkgname:8}
 _makeflag=-j8
 pkgver=${_basekernel}
@@ -185,7 +185,7 @@ package() {
   # remove firmware, as separate package provides them.
   rm -fr ${pkgdir}/lib/firmware
 }
-md5sums=('e896a3bb3185b8a8af8e2f010f63c02e'
-         '44e5bd7d90b78f7a4949478d1d8f7aa9'
-         '4e08018d01e4489e0581def897422e32'
-         '88d5b3e0622f8c48dad19ab9ac3c16f0')
+md5sums=('1aab7a741abe08d42e8eccf20de61e05'
+         '916e8bbc61b7e53609f75e6dc49b6f6f'
+         'f6fd7120c192c18cf11972b723071714'
+         '95fcd4f72792cf881f85d7da5919c751')
