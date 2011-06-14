@@ -2,7 +2,7 @@
 # Contributor: Eric Belanger <eric@archlinux.org>
 
 pkgname=plplot-svn
-pkgver=10769
+pkgver=11769
 pkgrel=1
 pkgdesc="A cross-platform software package for creating scientific plots, SVN version"
 arch=('i686' 'x86_64')
