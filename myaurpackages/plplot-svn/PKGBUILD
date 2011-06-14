@@ -11,7 +11,7 @@ license=("GPL" "custom")
 provides=('plplot')
 conflicts=('plplot')
 depends=('libtool' 'tk')
-makedepends=('cmake')
+makedepends=('cmake' 'svn')
 optdepends=('qhull: calculating convex hulls'
             'agg: high quality rendering engine in C++'
             'swig: connects Plplot C library to Python, Java and Lua'
