@@ -12,14 +12,15 @@ provides=('plplot')
 conflicts=('plplot')
 depends=('libtool' 'tk')
 makedepends=('cmake')
-optdepends=('qhull : calculating convex hulls'
-            'agg : high quality rendering engine in C++' 
-            'swig : connects Plplot C library to Python, Java and Lua'
-            'gd : ability to output png, jpeg and gif files'
-            'qt : display plots, output various formats  using the Qt UI framework'
-            'wxgtk : displays plots using wxWidgets library'
-            'freetype2, ttf-freefont : enables use of ttf fonts for some drivers'
-            'cairo : displays plots and save to different file formats')
+optdepends=('qhull: calculating convex hulls'
+            'agg: high quality rendering engine in C++'
+            'swig: connects Plplot C library to Python, Java and Lua'
+            'gd: ability to output png, jpeg and gif files'
+            'qt: display plots, output various formats  using the Qt UI framework'
+            'wxgtk: displays plots using wxWidgets library'
+            'freetype2: ttf fonts and some drivers'
+            'ttf-freefont: ttf fonts for some drivers'
+            'cairo: displays plots and save to different file formats')
 options=('!libtool' '!makeflags')
 source=()
 
